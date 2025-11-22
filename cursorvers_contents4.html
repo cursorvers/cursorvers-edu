@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cursorvers Inc. | Medical AI Governance</title>
+    <meta name="description" content="医療AIガバナンスと臨床知の資産化を支援するCursorvers株式会社。">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/EffectComposer.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/RenderPass.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/ShaderPass.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/CopyShader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/LuminosityHighPassShader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/UnrealBloomPass.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Inter"', '"Noto Sans JP"', 'sans-serif'],
+                    },
+                    colors: {
+                        'brand-dark': '#0B0C10', 
+                        'brand-gray': '#1F2833',
+                        'brand-light': '#C5C6C7',
+                        'brand-accent': '#66FCF1',
+                        'brand-blue': '#45A29E',
+                    },
+                    animation: {
+                        'slow-pan': 'slowPan 60s linear infinite',
+                    },
+                    keyframes: {
+                        slowPan: {
+                            '0%': { objectPosition: 'center' },
+                            '50%': { objectPosition: '30% 50%' },
+                            '100%': { objectPosition: 'center' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #0B0C10;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        /* 3D Canvas Layer */
+        #webgl-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: -1;
+            /* opacityはJSで制御 */
+        }
+
+        /* Layout */
+        .section-padding {
+            padding-top: 160px;
+            padding-bottom: 160px;
+        }
+
+        /* Glassmorphism Navbar */
+        .glass-nav {
+            background: rgba(11, 12, 16, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Image Masks & Hover Effects (洗練された表現へ) */
+        .img-mask {
+            overflow: hidden;
+            position: relative;
+            border-radius: 1rem;
+            transform: translateZ(0); /* For Safari perf */
+        }
+        .img-mask img {
+            transition: transform 1.5s cubic-bezier(0.22, 1, 0.36, 1), filter 0.5s ease;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(20%) contrast(110%);
+        }
+        .img-mask:hover img {
+            transform: scale(1.03);
+            filter: grayscale(0%) contrast(100%);
+        }
+        .img-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, #0B0C10 10%, transparent 100%);
+            opacity: 0.6;
+            transition: opacity 0.5s ease;
+        }
+        .img-mask:hover .img-overlay {
+            opacity: 0.3;
+        }
+
+        /* Typography */
+        .text-balance { text-wrap: balance; }
+        
+        /* Scroll Reveal Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div id="webgl-container"></div>
+
+    <header class="fixed w-full z-50 glass-nav transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 h-24 flex items-center justify-between">
+            <a href="#" class="flex items-center gap-3 group">
+                <img src="Cursorvers_logo1.jpeg" onerror="this.style.display='none'" alt="Logo" class="h-10 w-10 rounded-full border border-white/20 shadow-lg group-hover:border-brand-accent/50 transition">
+                <span class="text-xl font-bold tracking-tight text-white">Cursorvers</span>
+            </a>
+            <nav class="hidden md:flex items-center gap-12 text-sm font-medium text-gray-400">
+                <a href="#mission" class="hover:text-white transition duration-300 relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[1px] after:bg-brand-accent hover:after:w-full after:transition-all">Mission</a>
+                <a href="#solutions" class="hover:text-white transition duration-300 relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[1px] after:bg-brand-accent hover:after:w-full after:transition-all">Solutions</a>
+                <a href="#company" class="hover:text-white transition duration-300 relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[1px] after:bg-brand-accent hover:after:w-full after:transition-all">Company</a>
+            </nav>
+            <div class="flex items-center gap-6">
+                <a href="#contact" class="hidden md:inline-block text-sm font-bold text-white border-b border-white/30 pb-1 hover:border-brand-accent hover:text-brand-accent transition">Contact</a>
+                <button class="md:hidden text-white text-xl"><i class="fa-solid fa-bars"></i></button>
+            </div>
+        </div>
+    </header>
+
+    <section class="relative h-screen flex items-center justify-center overflow-hidden">
+        <div class="relative z-10 max-w-7xl mx-auto px-6 w-full pt-20 pointer-events-none"> <div class="reveal delay-100">
+                <span class="inline-block py-1 px-3 border border-brand-accent/50 bg-brand-accent/10 text-brand-accent text-xs font-bold tracking-[0.2em] uppercase rounded mb-8 backdrop-blur-md">
+                    Medical AI Governance
+                </span>
+            </div>
+            <h1 class="text-6xl md:text-9xl font-bold tracking-tighter leading-[1.1] mb-8 text-balance reveal delay-200 mix-blend-overlay">
+                <span class="block text-white drop-shadow-2xl">個の自律なくして、</span>
+                <span class="block text-gray-300 drop-shadow-xl">組織の防衛なし。</span>
+            </h1>
+            <p class="text-gray-300 text-xl md:text-2xl max-w-3xl leading-relaxed reveal delay-300 drop-shadow-md pointer-events-auto"> AI時代、医療機関を守る最後の砦は「システム」ではなく「人」です。<br>
+                Cursorversは、臨床知の資産化を通じて個人の経済的自律を促し、<br>
+                結果として組織のガバナンス強度を最大化します。
+            </p>
+            
+            <div class="mt-16 flex flex-wrap gap-10 text-sm text-gray-400 reveal delay-500 pointer-events-auto">
+                <div class="flex items-center gap-3">
+                    <div class="w-2 h-2 bg-brand-accent rounded-full animate-pulse"></div>
+                    Health ISAC Japan 協業
+                </div>
+                <div class="flex items-center gap-3">
+                    <div class="w-2 h-2 bg-brand-accent rounded-full animate-pulse" style="animation-delay: 0.2s;"></div>
+                     Verified Domain
+                </div>
+            </div>
+        </div>
+        
+        <div class="absolute bottom-12 left-1/2 -translate-x-1/2 animate-bounce text-gray-500">
+            <span class="text-[10px] tracking-widest uppercase mb-2 block">Scroll</span>
+            <i class="fa-solid fa-chevron-down text-lg"></i>
+        </div>
+    </section>
+
+    <section id="mission" class="section-padding relative z-10">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-20 items-center">
+                <div class="relative reveal group">
+                    <div class="img-mask aspect-[4/5] shadow-2xl shadow-brand-accent/10">
+                        <img src="https://images.unsplash.com/photo-1633167606207-d840b5070fc2?q=80&w=1000&auto=format&fit=crop" alt="Advanced Medical AI">
+                        <div class="img-overlay"></div>
+                    </div>
+                    <div class="absolute -bottom-8 -left-8 bg-[#0B0C10]/90 backdrop-blur-xl p-8 rounded-lg shadow-xl border border-white/10 max-w-sm hidden md:block">
+                        <p class="text-brand-accent text-xs font-bold uppercase mb-3">Core Philosophy</p>
+                        <p class="text-white text-lg font-bold leading-tight">臨床知は、再利用可能な<br>デジタル資産となる。</p>
+                    </div>
+                </div>
+                
+                <div class="reveal">
+                    <span class="text-brand-blue text-xs font-bold tracking-widest uppercase block mb-6">Our Mission</span>
+                    <h2 class="text-4xl md:text-6xl font-bold mb-10 leading-tight">
+                        <span class="text-brand-accent">知的資産の防衛</span>が<br>
+                        最大のガバナンスである
+                    </h2>
+                    <div class="space-y-8 text-gray-400 text-xl leading-relaxed">
+                        <p>
+                            「AIでどう稼ぐか」という問いは表層に過ぎません。<br>
+                            本質は、あなたの臨床経験という不可侵の資産を、AIをテコにしていかに「防衛（Defense）」し、「拡張（Scale）」するかという戦略論です。
+                        </p>
+                        <p class="border-l-4 border-brand-accent pl-6 italic text-white">
+                            自身の所得価値を守れないリテラシーで、複雑化する病院組織を守ることは不可能です。<br>
+                            個人の収益化プロセスは、そのまま組織のガバナンス能力の証明となります。
+                        </p>
+                    </div>
+                    <div class="mt-12">
+                        <a href="#solutions" class="inline-flex items-center gap-3 text-white font-bold group">
+                            <span class="border-b border-brand-accent pb-1 group-hover:text-brand-accent transition">View Solutions</span>
+                            <i class="fa-solid fa-arrow-right text-sm group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="solutions" class="section-padding bg-[#0F1014] relative z-10">
+        <div class="max-w-7xl mx-auto px-6 relative">
+            <div class="mb-24 reveal max-w-3xl">
+                <span class="text-brand-accent text-xs font-bold tracking-widest uppercase block mb-6">The Ecosystem</span>
+                <h2 class="text-5xl md:text-7xl font-bold text-white mb-8">Strategic Roadmap</h2>
+                <p class="text-gray-500 text-xl leading-relaxed">
+                    臨床知の資産化から、組織ガバナンスへの接続。<br>
+                    3つのフェーズで実現する、医療AIガバナンスの実装モデル。
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-10">
+                
+                <div class="group bg-[#15161A] border border-white/5 rounded-2xl overflow-hidden hover:border-brand-accent/30 transition duration-500 flex flex-col reveal shadow-lg hover:shadow-2xl hover:shadow-brand-accent/5">
+                    <div class="h-64 overflow-hidden relative img-mask">
+                        <div class="absolute top-6 left-6 bg-green-500/90 text-black text-xs font-bold px-4 py-2 rounded-full backdrop-blur-md z-10">PHASE 01</div>
+                        <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?q=80&w=800&auto=format&fit=crop" alt="Digital Learning" class="animate-slow-pan">
+                        <div class="img-overlay opacity-40 group-hover:opacity-20"></div>
+                    </div>
+                    <div class="p-10 flex flex-col flex-grow">
+                        <h3 class="text-2xl font-bold text-white mb-4">Individual Literacy</h3>
+                        <p class="text-base text-gray-400 mb-8 leading-relaxed">
+                            リスクを制御し、AIを使いこなすための基礎教養。<br>Free Communityでの情報提供とリテラシー診断。
+                        </p>
+                        <ul class="space-y-4 text-sm text-gray-500 mb-10">
+                            <li class="flex items-center gap-3"><i class="fa-solid fa-check-circle text-green-500 text-lg"></i> リスク診断ボット</li>
+                            <li class="flex items-center gap-3"><i class="fa-solid fa-check-circle text-green-500 text-lg"></i> 安全プロンプト集</li>
+                        </ul>
+                        <div class="mt-auto">
+                            <a href="LINE_URL" class="block w-full py-4 bg-white/5 text-center text-white font-bold rounded-lg hover:bg-green-500 hover:text-black transition duration-300 border border-white/10 hover:border-transparent">
+                                <i class="fa-brands fa-line mr-2"></i> Join Free Community
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="group bg-[#15161A] border border-white/5 rounded-2xl overflow-hidden hover:border-brand-accent/30 transition duration-500 flex flex-col reveal shadow-lg hover:shadow-2xl hover:shadow-brand-accent/5" style="transition-delay: 0.1s;">
+                    <div class="h-64 overflow-hidden relative img-mask">
+                        <div class="absolute top-6 left-6 bg-brand-accent/90 text-black text-xs font-bold px-4 py-2 rounded-full backdrop-blur-md z-10">PHASE 02</div>
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800&auto=format&fit=crop" alt="Asset Building" class="animate-slow-pan">
+                        <div class="img-overlay opacity-40 group-hover:opacity-20"></div>
+                    </div>
+                    <div class="p-10 flex flex-col flex-grow">
+                        <h3 class="text-2xl font-bold text-white mb-4">Asset Building</h3>
+                        <p class="text-base text-gray-400 mb-8 leading-relaxed">
+                            知的生産の自動化とデジタル資産の構築。<br>Library Memberによる実務ツールの提供。
+                        </p>
+                        <ul class="space-y-4 text-sm text-gray-500 mb-10">
+                            <li class="flex items-center gap-3"><i class="fa-solid fa-check-circle text-brand-accent text-lg"></i> 業務効率化ツール</li>
+                            <li class="flex items-center gap-3"><i class="fa-solid fa-check-circle text-brand-accent text-lg"></i> 著作権フリー規定雛形</li>
+                        </ul>
+                        <div class="mt-auto pt-6 border-t border-white/5">
+                            <div class="flex justify-between items-end mb-6">
+                                <span class="text-sm text-gray-500 font-medium">Monthly Investment</span>
+                                <span class="text-3xl font-bold text-white leading-none">¥2,980<span class="text-sm text-gray-500 ml-1">/mo</span></span>
+                            </div>
+                            <a href="#" class="block w-full py-4 bg-brand-accent text-black text-center font-bold rounded-lg hover:bg-white transition duration-300 shadow-lg shadow-brand-accent/20">
+                                Join Library
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="group bg-[#15161A] border border-white/5 rounded-2xl overflow-hidden hover:border-brand-accent/30 transition duration-500 flex flex-col reveal shadow-lg hover:shadow-2xl hover:shadow-brand-accent/5" style="transition-delay: 0.2s;">
+                    <div class="h-64 overflow-hidden relative img-mask">
+                        <div class="absolute top-6 left-6 bg-yellow-500/90 text-black text-xs font-bold px-4 py-2 rounded-full backdrop-blur-md z-10">PHASE 03</div>
+                        <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=80&w=800&auto=format&fit=crop" alt="Governance" class="animate-slow-pan">
+                        <div class="img-overlay opacity-40 group-hover:opacity-20"></div>
+                    </div>
+                    <div class="p-10 flex flex-col flex-grow">
+                        <h3 class="text-2xl font-bold text-white mb-4">Governance</h3>
+                        <p class="text-base text-gray-400 mb-8 leading-relaxed">
+                            個人の知見を組織の防衛力へ。<br>Master Class修了者による監査・顧問体制の構築。
+                        </p>
+                        <ul class="space-y-4 text-sm text-gray-500 mb-10">
+                            <li class="flex items-center gap-3"><i class="fa-solid fa-check-circle text-yellow-500 text-lg"></i> ガバナンス体制構築</li>
+                            <li class="flex items-center gap-3"><i class="fa-solid fa-check-circle text-yellow-500 text-lg"></i> 第三者監査への接続</li>
+                        </ul>
+                        <div class="mt-auto pt-6 border-t border-white/5">
+                            <div class="flex justify-between items-end mb-6">
+                                <span class="text-sm text-gray-500 font-medium">3-Month Program</span>
+                                <span class="text-3xl font-bold text-white leading-none">¥380,000</span>
+                            </div>
+                            <a href="#" class="block w-full py-4 bg-transparent border-2 border-yellow-500 text-yellow-500 text-center font-bold rounded-lg hover:bg-yellow-500 hover:text-black transition duration-300">
+                                Apply for Master Class
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="company" class="section-padding relative z-10">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-20 items-center">
+                <div class="reveal order-2 md:order-1">
+                    <span class="text-brand-accent text-xs font-bold tracking-widest uppercase block mb-6">About Us</span>
+                    <h2 class="text-4xl font-bold mb-10">Company Profile</h2>
+                    <p class="text-gray-300 text-lg leading-relaxed mb-12">
+                        Cursorversは、医療AIの「安全・倫理・継続性」を担保する専門機関です。<br>
+                        最先端のテクノロジーと法務・税務の専門知識を融合させ、日本の医療現場に最適なガバナンスモデルを実装します。
+                    </p>
+                    
+                    <div class="bg-[#15161A] p-8 rounded-2xl border border-white/5 shadow-xl">
+                        <h4 class="font-bold text-white mb-6 flex items-center gap-3">
+                            <i class="fa-solid fa-handshake-simple text-brand-accent"></i> Partner Network
+                        </h4>
+                        <ul class="text-base text-gray-400 space-y-4">
+                            <li class="flex items-center justify-between border-b border-white/5 pb-3">
+                                <span>Health ISAC Japan</span>
+                                <span class="text-xs bg-white/10 px-2 py-1 rounded text-gray-300">Audit Collaboration</span>
+                            </li>
+                            <li class="flex items-center justify-between border-b border-white/5 pb-3">
+                                <span>税理士法人シリウス</span>
+                                <span class="text-xs bg-white/10 px-2 py-1 rounded text-gray-300">Tax</span>
+                            </li>
+                            <li class="flex items-center justify-between pb-3">
+                                <span>熊谷経営法律事務所</span>
+                                <span class="text-xs bg-white/10 px-2 py-1 rounded text-gray-300">Legal</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="reveal order-1 md:order-2 relative group">
+                    <div class="img-mask aspect-square rounded-2xl shadow-2xl shadow-brand-accent/5">
+                        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1000&auto=format&fit=crop" alt="Cursorvers Office">
+                        <div class="img-overlay opacity-20 group-hover:opacity-0"></div>
+                    </div>
+                    <div class="absolute -bottom-8 -left-8 bg-brand-accent text-black p-6 rounded-lg shadow-xl hidden md:block">
+                        <p class="text-3xl font-bold">Tokyo,<br>Japan</p>
+                        <p class="text-sm font-medium opacity-80 mt-2">Based in</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-24 reveal max-w-3xl mx-auto">
+                 <div class="border-t border-white/10">
+                    <div class="flex py-6 border-b border-white/10">
+                        <span class="w-40 text-gray-500 font-bold">会社名</span>
+                        <span class="text-white font-medium">Cursorvers（カーソルバース）</span>
+                    </div>
+                    <div class="flex py-6 border-b border-white/10">
+                        <span class="w-40 text-gray-500 font-bold">代表者</span>
+                        <span class="text-white font-medium">Founder</span>
+                    </div>
+                    <div class="flex py-6 border-b border-white/10">
+                        <span class="w-40 text-gray-500 font-bold">事業内容</span>
+                        <div class="text-white font-medium leading-relaxed">
+                            医療AIガバナンス教育事業<br>
+                            医療機関向け監査・顧問事業<br>
+                            導入コンサルティング
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact" class="bg-[#050507] py-20 border-t border-white/5 relative z-10">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-12 mb-16">
+                <div class="col-span-2 pr-12">
+                    <div class="flex items-center gap-3 mb-6">
+                        <img src="Cursorvers_logo1.jpeg" onerror="this.style.display='none'" alt="Logo" class="h-8 w-8 rounded-full border border-white/20">
+                        <span class="text-2xl font-bold text-white">Cursorvers</span>
+                    </div>
+                    <p class="text-gray-400 leading-relaxed mb-8">
+                        Building trust in Medical AI through governance and education.<br>
+                        医療AIの信頼を、ガバナンスと教育で築く。
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="#" class="text-gray-400 hover:text-brand-accent transition text-xl"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-brand-accent transition text-xl"><i class="fa-brands fa-linkedin"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-green-500 transition text-xl"><i class="fa-brands fa-line"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-6">Navigation</h4>
+                    <ul class="space-y-4 text-sm text-gray-400">
+                        <li><a href="#mission" class="hover:text-brand-accent transition">Mission</a></li>
+                        <li><a href="#solutions" class="hover:text-brand-accent transition">Solutions</a></li>
+                        <li><a href="#company" class="hover:text-brand-accent transition">Company</a></li>
+                        <li><a href="#" class="hover:text-brand-accent transition">News</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-6">Contact & Legal</h4>
+                    <ul class="space-y-4 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-brand-accent transition">Contact Us</a></li>
+                        <li><a href="#" class="hover:text-brand-accent transition">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-brand-accent transition">Terms of Service</a></li>
+                        <li><a href="#" class="hover:text-brand-accent transition">Commercial Law</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-gray-500">
+                <p>&copy; 2025 Cursorvers Inc. All Rights Reserved.</p>
+                <p>Trademarks and brand names are the property of their respective owners.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 1. Professional 3D Background with Three.js (Refined)
+        const container = document.getElementById('webgl-container');
+        const scene = new THREE.Scene();
+        scene.fog = new THREE.FogExp2(0x0B0C10, 0.001); // Deep fog
+
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        renderer.toneMapping = THREE.ReinhardToneMapping;
+        container.appendChild(renderer.domElement);
+
+        // Complex Particle System (Neural Network Style)
+        const particlesGeometry = new THREE.BufferGeometry();
+        const count = 5000;
+        const posArray = new Float32Array(count * 3);
+        const scaleArray = new Float32Array(count);
+
+        for(let i = 0; i < count; i++) {
+            const i3 = i * 3;
+            // Spiral distribution
+            const radius = Math.random() * 150 + 20;
+            const spinAngle = radius * 0.05;
+            const branchAngle = (Math.PI * 2 * Math.random()) + spinAngle;
+            
+            posArray[i3 + 0] = Math.cos(branchAngle) * radius + (Math.random() - 0.5) * 10; // x
+            posArray[i3 + 1] = (Math.random() - 0.5) * 50; // y (height spread)
+            posArray[i3 + 2] = Math.sin(branchAngle) * radius + (Math.random() - 0.5) * 10; // z
+
+            scaleArray[i] = Math.random();
+        }
+        particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+        particlesGeometry.setAttribute('aScale', new THREE.BufferAttribute(scaleArray, 1));
+
+        // Custom Shader Material for Glowing Particles
+        const particlesMaterial = new THREE.ShaderMaterial({
+            uniforms: {
+                uTime: { value: 0 },
+                uColor: { value: new THREE.Color('#66FCF1') }, // Brand accent
+                uPixelRatio: { value: Math.min(window.devicePixelRatio, 2) },
+                uSize: { value: 150.0 }
+            },
+            vertexShader: `
+                uniform float uTime;
+                uniform float uPixelRatio;
+                uniform float uSize;
+                attribute float aScale;
+                varying vec3 vPosition;
+
+                void main() {
+                    vec3 newPosition = position;
+                    // Organic movement
+                    newPosition.y += sin(uTime + position.x * 0.02) * 2.0;
+                    newPosition.x += cos(uTime + position.z * 0.02) * 2.0;
+
+                    vec4 modelPosition = modelMatrix * vec4(newPosition, 1.0);
+                    vec4 viewPosition = viewMatrix * modelPosition;
+                    vec4 projectedPosition = projectionMatrix * viewPosition;
+
+                    gl_Position = projectedPosition;
+                    vPosition = modelPosition.xyz;
+
+                    // Size attenuation
+                    gl_PointSize = uSize * aScale * uPixelRatio;
+                    gl_PointSize *= (1.0 / -viewPosition.z);
+                }
+            `,
+            fragmentShader: `
+                uniform vec3 uColor;
+                varying vec3 vPosition;
+
+                void main() {
+                    // Circular particle
+                    float distanceToCenter = distance(gl_PointCoord, vec2(0.5));
+                    if(distanceToCenter > 0.5) discard;
+                    
+                    // Glow effect
+                    float strength = 0.05 / distanceToCenter - 0.1;
+                    
+                    // Depth color gradient
+                    vec3 depthColor = mix(uColor, vec3(0.0, 0.1, 0.2), smoothstep(0.0, 100.0, -vPosition.z));
+                    
+                    gl_FragColor = vec4(depthColor * strength, 1.0);
+                }
+            `,
+            transparent: true,
+            blending: THREE.AdditiveBlending,
+            depthWrite: false
+        });
+
+        const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+        scene.add(particlesMesh);
+
+        camera.position.z = 100;
+        camera.position.y = 20;
+
+        // Interaction
+        let mouseX = 0;
+        let mouseY = 0;
+        let targetX = 0;
+        let targetY = 0;
+
+        document.addEventListener('mousemove', (event) => {
+            mouseX = (event.clientX / window.innerWidth - 0.5) * 2;
+            mouseY = (event.clientY / window.innerHeight - 0.5) * 2;
+        });
+
+        // Post-processing (Bloom for glow)
+        const composer = new THREE.EffectComposer(renderer);
+        composer.addPass(new THREE.RenderPass(scene, camera));
+        const bloomPass = new THREE.UnrealBloomPass(
+            new THREE.Vector2(window.innerWidth, window.innerHeight),
+            1.5, // strength
+            0.4, // radius
+            0.85 // threshold
+        );
+        composer.addPass(bloomPass);
+
+        const clock = new THREE.Clock();
+
+        function animate() {
+            const elapsedTime = clock.getElapsedTime();
+
+            // Smooth camera movement
+            targetX = mouseX * 10;
+            targetY = mouseY * 10;
+            camera.position.x += (targetX - camera.position.x) * 0.02;
+            camera.position.y += (-targetY + 20 - camera.position.y) * 0.02;
+            camera.lookAt(0, 0, 0);
+
+            // Update shader uniform
+            particlesMaterial.uniforms.uTime.value = elapsedTime;
+
+            // Slow rotation
+            particlesMesh.rotation.y = elapsedTime * 0.05;
+
+            // Use composer instead of renderer
+            composer.render();
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        // Resize Handle
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            composer.setSize(window.innerWidth, window.innerHeight);
+            particlesMaterial.uniforms.uPixelRatio.value = Math.min(window.devicePixelRatio, 2);
+        });
+
+        // 2. Scroll Reveal Observer (Refined)
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { 
+            threshold: 0.15,
+            rootMargin: "0px 0px -100px 0px" 
+        });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // 3. 3D Canvas Opacity on Scroll (Fade out/in)
+        const webglContainer = document.getElementById('webgl-container');
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            const heroHeight = window.innerHeight;
+            
+            // ヒーローセクションでは濃く、スクロールすると少し薄く
+            let opacity = 1.0 - (scrollY / heroHeight) * 0.5;
+            opacity = Math.max(0.5, Math.min(1.0, opacity));
+            webglContainer.style.opacity = opacity;
+        });
+
+    </script>
+</body>
+</html>

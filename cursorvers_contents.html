@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Cursorvers | 臨床知の資産化プロジェクト</title>
+    <meta name="description" content="医療知識をデジタル資産へ。AIを活用した医師・医療従事者のためのハイエンド・コンテンツビジネス講座。">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700;900&family=Noto+Sans+JP:wght@300;500;700;900&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'navy-dark': '#020408',
+                        'navy-light': '#0B1221',
+                        'neon-green': '#06C755', 
+                        'neon-blue': '#38BDF8',
+                        'neon-gold': '#F59E0B',
+                    },
+                    fontFamily: {
+                        sans: ['"Inter"', '"Noto Sans JP"', 'sans-serif'],
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #020408;
+            color: white;
+            overflow-x: hidden;
+            margin: 0;
+        }
+
+        /* 3D Canvas Container */
+        #canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at center, #0F172A 0%, #020408 100%);
+        }
+
+        /* Glassmorphism Card */
+        .glass-card {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+        .glass-card:hover {
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.6);
+        }
+
+        /* Typography Gradients */
+        .text-gradient-gold {
+            background: linear-gradient(to right, #FDE68A, #F59E0B, #FDE68A);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            background-size: 200% auto;
+            animation: shimmer 3s linear infinite;
+        }
+        
+        .text-gradient-blue {
+            background: linear-gradient(to right, #E0F2FE, #38BDF8, #E0F2FE);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        @keyframes shimmer {
+            to { background-position: 200% center; }
+        }
+
+        /* Scroll Reveal */
+        .reveal-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-up.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Hero Content Layout */
+        .hero-wrapper {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            perspective: 1000px;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #020408; }
+        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #F59E0B; }
+    </style>
+</head>
+<body class="antialiased selection:bg-neon-gold selection:text-black">
+
+    <div id="canvas-container"></div>
+
+    <header class="fixed top-0 w-full z-50 glass-card !bg-opacity-80 !border-none !rounded-none h-20 flex items-center justify-between px-6 md:px-12 transition-all duration-300 border-b border-white/5">
+        <div class="flex items-center gap-3 cursor-pointer">
+            <img src="Cursorvers_logo1.jpeg" alt="Cursorvers Logo" class="w-10 h-10 rounded-full border border-white/20 shadow-[0_0_15px_rgba(245,158,11,0.3)]">
+            <div class="text-xl font-black tracking-tight text-white">Cursorvers</div>
+        </div>
+        <div class="flex items-center gap-4">
+            <a href="#line-cv" class="hidden md:inline-flex items-center justify-center px-6 py-2 text-sm font-bold text-white transition-all duration-200 bg-white/10 border border-white/10 rounded-full hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white/50">
+                Member Login
+            </a>
+            <a href="#line-cv" class="inline-flex items-center justify-center px-6 py-2 text-sm font-bold text-black transition-all duration-200 bg-neon-gold rounded-full hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-neon-gold shadow-[0_0_20px_rgba(245,158,11,0.4)]">
+                無料診断
+            </a>
+        </div>
+    </header>
+
+    <section class="hero-wrapper px-6">
+        <div class="text-center max-w-5xl mx-auto z-10 mt-10">
+            
+            <div class="reveal-up delay-100 mb-8 flex justify-center">
+                <span class="px-4 py-2 text-xs font-bold tracking-widest text-neon-blue uppercase bg-blue-900/20 border border-blue-500/30 rounded-full backdrop-blur-md shadow-[0_0_15px_rgba(56,189,248,0.3)]">
+                    <i class="fa-solid fa-cube mr-2"></i> Intellectual Asset Management
+                </span>
+            </div>
+
+            <h1 class="reveal-up delay-200 text-5xl md:text-8xl font-black tracking-tighter leading-[1.1] mb-8 drop-shadow-2xl">
+                <span class="block text-white">臨床の知見を、</span>
+                <span class="block text-gradient-gold">「不朽の資産」へ。</span>
+            </h1>
+
+            <p class="reveal-up delay-300 text-gray-300 text-base md:text-xl font-medium max-w-3xl mx-auto mb-12 leading-relaxed drop-shadow-md">
+                労働集約型の医療から、<span class="text-white font-bold border-b border-white/30">知的資本型</span>のキャリアへ。<br>
+                AIガバナンスと自動化技術により、<br class="hidden md:block">
+                あなたの専門性は、眠っている間も収益を生む資産に変わります。
+            </p>
+
+            <div class="reveal-up delay-500 flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="#line-cv" class="group relative inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-black transition-all duration-200 bg-white rounded-full hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white w-full sm:w-auto shadow-[0_0_40px_rgba(255,255,255,0.3)]">
+                    <span class="mr-2">資産化ロードマップを受け取る</span>
+                    <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                </a>
+                <p class="mt-4 sm:mt-0 text-xs text-gray-400 flex items-center gap-2">
+                    <i class="fa-solid fa-shield-halved text-neon-green"></i> 匿名・顔出し不要
+                </p>
+            </div>
+        </div>
+
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce text-white/30">
+            <i class="fa-solid fa-chevron-down text-2xl"></i>
+        </div>
+    </section>
+
+    <section class="py-32 px-6 relative z-10">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div class="reveal-up">
+                    <h2 class="text-3xl md:text-5xl font-bold mb-8 leading-tight">
+                        労働集約モデルの<br>
+                        <span class="text-gradient-gold">構造的限界</span>を超える。
+                    </h2>
+                    <p class="text-gray-400 text-lg leading-relaxed mb-8">
+                        当直や外勤での「時間の切り売り」には物理的な限界があります。<br>
+                        AI時代、賢明な医療者は<span class="text-white font-bold">「知識の指揮官」</span>となり、
+                        自身の臨床経験をスケーラブルなデジタル資産へと転換しています。
+                    </p>
+                    <div class="space-y-4">
+                        <div class="glass-card p-4 rounded-xl flex items-center gap-4">
+                            <div class="bg-red-500/20 p-3 rounded-lg text-red-500"><i class="fa-solid fa-clock text-xl"></i></div>
+                            <div>
+                                <div class="font-bold text-white">時間がない</div>
+                                <div class="text-xs text-gray-400">診療業務の傍らではアウトプットが不可能</div>
+                            </div>
+                        </div>
+                        <div class="glass-card p-4 rounded-xl flex items-center gap-4">
+                            <div class="bg-red-500/20 p-3 rounded-lg text-red-500"><i class="fa-solid fa-gavel text-xl"></i></div>
+                            <div>
+                                <div class="font-bold text-white">リスクへの懸念</div>
+                                <div class="text-xs text-gray-400">不適切な発信による炎上・社会的信用の毀損</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="reveal-up delay-200 relative">
+                    <div class="absolute inset-0 bg-neon-gold/20 blur-[100px] rounded-full"></div>
+                    <div class="glass-card p-8 rounded-3xl border border-neon-gold/30 text-center relative z-10 transform hover:scale-105 transition duration-500">
+                        <div class="inline-block p-4 rounded-full bg-neon-gold/10 text-neon-gold mb-6 animate-float">
+                            <i class="fa-solid fa-rocket text-6xl"></i>
+                        </div>
+                        <h3 class="text-4xl font-black text-white mb-2">x 100倍</h3>
+                        <p class="text-gray-400 text-sm uppercase tracking-widest mb-6">Productivity Leverage</p>
+                        <p class="text-lg text-white font-medium">
+                            AI自動化 × 専門知 = <span class="text-neon-gold">ストック収益</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-32 px-6 relative z-10 bg-navy-light/50">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-20 reveal-up">
+                <span class="text-neon-green text-xs font-bold tracking-widest uppercase border border-neon-green/30 px-3 py-1 rounded-full">Strategic Roadmap</span>
+                <h2 class="text-4xl md:text-6xl font-bold mt-6 mb-6">資産構築の3フェーズ</h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">
+                    Cursorversは、安全なガバナンスを土台に「信頼」と「収益」を両立させる唯一のエコシステムです。
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                
+                <div class="glass-card p-8 rounded-2xl reveal-up delay-100 border-t-4 border-t-neon-green flex flex-col">
+                    <div class="mb-6">
+                        <span class="text-neon-green text-xs font-bold bg-neon-green/10 px-2 py-1 rounded">PHASE 01</span>
+                        <h3 class="text-2xl font-bold text-white mt-2">Risk & Literacy</h3>
+                    </div>
+                    <p class="text-sm text-gray-400 mb-8 flex-grow">まずは「守り」を固める。安全なAI活用リテラシーの習得と、市場価値の診断。</p>
+                    <ul class="space-y-3 text-sm text-gray-300 mb-8">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-neon-green"></i> AI適性診断</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-neon-green"></i> 安全ガイドライン</li>
+                    </ul>
+                    <div class="mt-auto pt-6 border-t border-white/5 text-center">
+                        <span class="text-2xl font-bold text-white">Free</span>
+                        <p class="text-xs text-gray-500">LINE登録で即時開始</p>
+                    </div>
+                </div>
+
+                <div class="glass-card p-8 rounded-2xl reveal-up delay-200 border-t-4 border-t-neon-blue flex flex-col transform md:-translate-y-4 shadow-[0_0_30px_rgba(56,189,248,0.1)]">
+                    <div class="mb-6">
+                        <span class="text-neon-blue text-xs font-bold bg-neon-blue/10 px-2 py-1 rounded">PHASE 02</span>
+                        <h3 class="text-2xl font-bold text-white mt-2">Automation</h3>
+                    </div>
+                    <p class="text-sm text-gray-400 mb-8 flex-grow">AIによる知的生産の自動化。論文・記事・資料作成を劇的に効率化する実務ツール。</p>
+                    <ul class="space-y-3 text-sm text-gray-300 mb-8">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-neon-blue"></i> 記事生成AIエンジン</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-neon-blue"></i> 著作権フリー素材</li>
+                    </ul>
+                    <div class="mt-auto pt-6 border-t border-white/5 text-center">
+                        <span class="text-2xl font-bold text-white">¥2,980<span class="text-xs font-normal">/月</span></span>
+                        <p class="text-xs text-gray-500">Library Member</p>
+                    </div>
+                </div>
+
+                <div class="glass-card p-8 rounded-2xl reveal-up delay-300 border-t-4 border-t-neon-gold flex flex-col bg-gradient-to-b from-white/5 to-transparent">
+                    <div class="mb-6">
+                        <span class="text-neon-gold text-xs font-bold bg-neon-gold/10 px-2 py-1 rounded">PHASE 03</span>
+                        <h3 class="text-2xl font-bold text-white mt-2">Asset Building</h3>
+                    </div>
+                    <p class="text-sm text-gray-400 mb-8 flex-grow">権威性と収益システムの確立。ガバナンス専門家として高単価案件を受注。</p>
+                    <ul class="space-y-3 text-sm text-gray-300 mb-8">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-star text-neon-gold"></i> コンテンツ構築指導</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-star text-neon-gold"></i> 監査・顧問案件接続</li>
+                    </ul>
+                    <div class="mt-auto pt-6 border-t border-white/5 text-center">
+                        <span class="text-2xl font-bold text-white">¥380,000<span class="text-xs font-normal">/3ヶ月</span></span>
+                        <p class="text-xs text-gray-500">Master Class (審査制)</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="line-cv" class="py-32 px-6 relative z-10">
+        <div class="max-w-4xl mx-auto relative">
+            <div class="absolute inset-0 bg-gradient-to-r from-neon-gold/20 to-neon-blue/20 blur-[100px] rounded-full opacity-50"></div>
+            
+            <div class="glass-card rounded-3xl p-12 text-center relative z-10 border border-white/10">
+                <h2 class="text-3xl md:text-5xl font-black mb-8">
+                    あなたの知識は、<br>まだ<span class="text-neon-gold">眠っている。</span>
+                </h2>
+                <p class="text-gray-300 text-lg mb-10">
+                    まずは無料で、あなたの専門性がどれほどの「資産価値」を持つか診断しませんか？<br>
+                    LINE登録で、今すぐ使える3つの特典が届きます。
+                </p>
+
+                <div class="flex flex-wrap justify-center gap-4 mb-10">
+                    <div class="bg-black/40 px-6 py-3 rounded-full border border-white/10 text-sm flex items-center gap-2">
+                        <i class="fa-solid fa-chart-pie text-neon-green"></i> 資産化適性診断
+                    </div>
+                    <div class="bg-black/40 px-6 py-3 rounded-full border border-white/10 text-sm flex items-center gap-2">
+                        <i class="fa-solid fa-wand-magic-sparkles text-neon-blue"></i> 収益化プロンプト
+                    </div>
+                    <div class="bg-black/40 px-6 py-3 rounded-full border border-white/10 text-sm flex items-center gap-2">
+                        <i class="fa-solid fa-shield-halved text-neon-gold"></i> 安全ガイドライン
+                    </div>
+                </div>
+
+                <a href="#" class="inline-flex items-center justify-center px-10 py-5 text-xl font-bold text-black transition-all duration-200 bg-neon-green rounded-full hover:bg-emerald-400 focus:outline-none shadow-[0_0_40px_rgba(6,199,85,0.5)] transform hover:scale-105">
+                    <i class="fa-brands fa-line text-3xl mr-3"></i>
+                    <div class="text-left leading-none">
+                        <span class="block text-xs opacity-80 mb-1">特典を受け取って</span>
+                        ロードマップを見る
+                    </div>
+                </a>
+                <p class="mt-6 text-xs text-gray-500">※ いつでもブロック可能です</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="border-t border-white/5 bg-black py-12 px-6 text-xs text-gray-500 relative z-10">
+        <div class="max-w-4xl mx-auto text-center">
+            <div class="flex justify-center gap-6 mb-8">
+                <span class="bg-white/5 px-4 py-2 rounded-full">Health ISAC Japan 協業</span>
+                <span class="bg-white/5 px-4 py-2 rounded-full">Verified Domain</span>
+            </div>
+            <p class="mb-8 leading-relaxed opacity-60 max-w-2xl mx-auto">
+                【免責事項】本サービスは、医療AI技術を用いたキャリア構築および資産形成に関する情報の提供および教育を目的としており、将来的な収益を保証するものではありません。副業規定や税務に関しては、所属機関の規定や専門家にご確認の上、ご自身の責任において行ってください。
+            </p>
+            <div class="flex justify-center gap-8 mb-4">
+                <a href="#" class="hover:text-white transition">特商法表記</a>
+                <a href="#" class="hover:text-white transition">プライバシーポリシー</a>
+            </div>
+            <p>&copy; 2025 Cursorvers. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // 1. Scene Setup
+        const container = document.getElementById('canvas-container');
+        const scene = new THREE.Scene();
+        // フォグを追加して奥行き感を出す
+        scene.fog = new THREE.FogExp2(0x020408, 0.002);
+
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+        
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        container.appendChild(renderer.domElement);
+
+        // 2. Create Particles (The "Neural Network" Galaxy)
+        const particlesGeometry = new THREE.BufferGeometry();
+        const particlesCount = 3000; // パーティクル数
+        const posArray = new Float32Array(particlesCount * 3);
+        const colorArray = new Float32Array(particlesCount * 3);
+
+        const color1 = new THREE.Color(0x38BDF8); // Neon Blue
+        const color2 = new THREE.Color(0xF59E0B); // Neon Gold
+
+        for(let i = 0; i < particlesCount * 3; i+=3) {
+            // Sphere distribution
+            const r = 80 * Math.cbrt(Math.random());
+            const theta = Math.random() * 2 * Math.PI;
+            const phi = Math.acos(2 * Math.random() - 1);
+
+            posArray[i] = r * Math.sin(phi) * Math.cos(theta);
+            posArray[i+1] = r * Math.sin(phi) * Math.sin(theta);
+            posArray[i+2] = r * Math.cos(phi);
+
+            // Mix colors
+            const mixedColor = Math.random() > 0.5 ? color1 : color2;
+            colorArray[i] = mixedColor.r;
+            colorArray[i+1] = mixedColor.g;
+            colorArray[i+2] = mixedColor.b;
+        }
+
+        particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+        particlesGeometry.setAttribute('color', new THREE.BufferAttribute(colorArray, 3));
+
+        // Material with glowing texture
+        const particlesMaterial = new THREE.PointsMaterial({
+            size: 0.3,
+            vertexColors: true,
+            transparent: true,
+            opacity: 0.8,
+            blending: THREE.AdditiveBlending
+        });
+
+        const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+        scene.add(particlesMesh);
+
+        // 3. Camera Position
+        camera.position.z = 50;
+
+        // 4. Interactive Animation
+        let mouseX = 0;
+        let mouseY = 0;
+        let targetX = 0;
+        let targetY = 0;
+
+        const windowHalfX = window.innerWidth / 2;
+        const windowHalfY = window.innerHeight / 2;
+
+        document.addEventListener('mousemove', (event) => {
+            mouseX = (event.clientX - windowHalfX);
+            mouseY = (event.clientY - windowHalfY);
+        });
+
+        // Scroll Interaction
+        let scrollY = 0;
+        window.addEventListener('scroll', () => {
+            scrollY = window.scrollY;
+        });
+
+        const clock = new THREE.Clock();
+
+        function animate() {
+            const elapsedTime = clock.getElapsedTime();
+
+            // Smooth mouse movement
+            targetX = mouseX * 0.001;
+            targetY = mouseY * 0.001;
+
+            // Rotate entire system based on time and mouse
+            particlesMesh.rotation.y += 0.001;
+            particlesMesh.rotation.x += 0.0005;
+
+            // Parallax effect on mouse move
+            particlesMesh.rotation.y += 0.05 * (targetX - particlesMesh.rotation.y);
+            particlesMesh.rotation.x += 0.05 * (targetY - particlesMesh.rotation.x);
+
+            // Fly-through effect on scroll
+            // スクロールするとカメラが少し前進する
+            camera.position.z = 50 - (scrollY * 0.01);
+            
+            // 波打つ動き (Wave effect)
+            const positions = particlesGeometry.attributes.position.array;
+            for(let i = 0; i < particlesCount; i++) {
+                const i3 = i * 3;
+                // 微妙な揺らぎを与える
+                positions[i3 + 1] += Math.sin(elapsedTime + positions[i3]) * 0.002;
+            }
+            particlesGeometry.attributes.position.needsUpdate = true;
+
+            renderer.render(scene, camera);
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+
+        // 5. Resize Handler
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // 6. DOM Element Reveal (Intersection Observer)
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal-up').forEach(el => observer.observe(el));
+
+    </script>
+</body>
+</html>
