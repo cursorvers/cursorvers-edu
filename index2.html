@@ -50,7 +50,6 @@
             color: #FFFFFF; /* Base text white */
             overflow-x: hidden;
             font-feature-settings: "palt";
-            font-family: "Noto Sans JP", system-ui, sans-serif;
         }
 
         /* --- Hero Section Fusion --- */
@@ -437,64 +436,6 @@
         </div>
     </section>
 
-    <!-- NEW: Bridge to Cursorvers Inc. (B2B) -->
-    <section class="section-padding bg-brand-surface relative z-10">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="grid md:grid-cols-2 gap-16 items-center">
-                <div class="reveal">
-                    <span class="text-white/60 text-xs font-bold tracking-widest uppercase block mb-4">
-                        For Hospitals & Clinics
-                    </span>
-                    <h2 class="text-3xl md:text-4xl font-bold mb-6 leading-tight text-white">
-                        組織としてのAIガバナンスを<br class="hidden md:block">強化したい方へ
-                    </h2>
-                    <p class="text-white/80 text-base md:text-lg leading-relaxed mb-5">
-                        Cursorvers.eduは、医療者個人のリテラシーと臨床知の資産化を支援する教育ラインです。<br>
-                        医療機関としてAI導入・第三者監査・ベンダー評価を本格的に検討される場合は、
-                        BtoB専業スタジオ <span class="font-semibold">Cursorvers Inc.</span> が窓口となります。
-                    </p>
-                    <ul class="text-sm text-white/70 space-y-2 mb-8">
-                        <li class="flex gap-2">
-                            <i class="fa-solid fa-shield-halved mt-1 text-white"></i>
-                            <span>Advisory：AIガバナンス顧問（無床・有床診療所〜中小病院）</span>
-                        </li>
-                        <li class="flex gap-2">
-                            <i class="fa-solid fa-file-shield mt-1 text-white"></i>
-                            <span>Audit：第三者監査と認証レポート発行</span>
-                        </li>
-                        <li class="flex gap-2">
-                            <i class="fa-solid fa-microchip mt-1 text-white"></i>
-                            <span>Vendor Support：医療AIスタートアップ向け臨床適合性支援</span>
-                        </li>
-                    </ul>
-                    <a
-                        href="https://cursorvers.com/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="inline-flex items-center justify-center px-8 py-3 rounded-full bg-white text-black font-bold text-sm hover:bg-brand-accent hover:text-black transition"
-                    >
-                        Cursorvers Inc.（法人向けサイト）へ
-                        <i class="fa-solid fa-arrow-up-right-from-square ml-2 text-xs"></i>
-                    </a>
-                </div>
-
-                <div class="reveal">
-                    <div class="content-card rounded-2xl p-8 md:p-10 h-full flex flex-col justify-between">
-                        <p class="text-xs text-white/60 tracking-widest uppercase mb-3">Bottom-Up Governance</p>
-                        <h3 class="text-2xl font-bold text-white mb-4">
-                            個人から組織へ、ガバナンスを橋渡しする。
-                        </h3>
-                        <p class="text-white/80 text-sm leading-relaxed">
-                            教育ラインで育成された「AI担当医」や「AI担当事務」が、院内での検討をリードし、
-                            必要に応じてCursorvers Inc.との顧問契約・監査プロジェクトへとつなぎます。
-                            個人の学びと組織の意思決定が分断されないよう、両サイトは一つのエコシステムとして設計されています。
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <section id="company" class="section-padding bg-brand-bg relative z-10">
         <div class="max-w-7xl mx-auto px-6">
             <div class="grid md:grid-cols-12 gap-12 md:gap-24">
@@ -534,7 +475,7 @@
                                 <span class="text-white font-bold group-hover:translate-x-2 transition">税理士法人シリウス</span>
                                 <span class="text-xs border border-white/20 px-2 py-1 rounded text-white/60">Tax Advisory</span>
                             </li>
-                            <li class="flex items-center justify-between p-4 rounded hover:bg白/5 transition cursor-default group">
+                            <li class="flex items-center justify-between p-4 rounded hover:bg-white/5 transition cursor-default group">
                                 <span class="text-white font-bold group-hover:translate-x-2 transition">熊谷経営法律事務所</span>
                                 <span class="text-xs border border-white/20 px-2 py-1 rounded text-white/60">Legal Advisory</span>
                             </li>
@@ -590,6 +531,7 @@
         // 1. Three.js Setup: Dynamic Neural Network Overlay
         const container = document.getElementById('webgl-canvas');
         const scene = new THREE.Scene();
+        // No fog, clear view
 
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
@@ -597,13 +539,15 @@
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         container.appendChild(renderer.domElement);
 
-        const particleCount = 100;
+        // Create Network Geometry
+        const particleCount = 100; // Keep it minimal and elegant
         const group = new THREE.Group();
         scene.add(group);
 
         const geometry = new THREE.BufferGeometry();
         const positions = new Float32Array(particleCount * 3);
         
+        // Create nodes
         for (let i = 0; i < particleCount; i++) {
             const x = (Math.random() - 0.5) * 150;
             const y = (Math.random() - 0.5) * 100;
@@ -614,6 +558,7 @@
         }
         geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
 
+        // Material for Nodes (White Glowing Dots)
         const material = new THREE.PointsMaterial({
             size: 0.4,
             color: 0xffffff,
@@ -623,10 +568,11 @@
         const points = new THREE.Points(geometry, material);
         group.add(points);
 
+        // Material for Lines (Connecting the nodes)
         const lineMaterial = new THREE.LineBasicMaterial({
             color: 0xffffff,
             transparent: true,
-            opacity: 0.15
+            opacity: 0.15 // Subtle connection lines
         });
         const lineGeometry = new THREE.BufferGeometry();
         const lines = new THREE.LineSegments(lineGeometry, lineMaterial);
@@ -634,6 +580,7 @@
 
         camera.position.z = 60;
 
+        // Interaction Variables
         let mouseX = 0;
         let mouseY = 0;
         
@@ -642,15 +589,19 @@
             mouseY = (event.clientY - window.innerHeight / 2) * 0.01;
         });
 
+        // Animation Loop
         function animate() {
             requestAnimationFrame(animate);
 
+            // Gentle persistent rotation
             group.rotation.y += 0.0008;
             group.rotation.x += 0.0004;
 
+            // Interactive sway based on mouse
             group.rotation.x += (mouseY * 0.05 - group.rotation.x) * 0.05;
             group.rotation.y += (mouseX * 0.05 - group.rotation.y) * 0.05;
 
+            // Dynamic Line Connections
             const particlePositions = points.geometry.attributes.position.array;
             const linePositions = [];
             
@@ -661,7 +612,7 @@
                     const dz = particlePositions[i*3+2] - particlePositions[j*3+2];
                     const dist = Math.sqrt(dx*dx + dy*dy + dz*dz);
 
-                    if (dist < 20) {
+                    if (dist < 20) { // Connection threshold
                         linePositions.push(
                             particlePositions[i*3], particlePositions[i*3+1], particlePositions[i*3+2],
                             particlePositions[j*3], particlePositions[j*3+1], particlePositions[j*3+2]
@@ -675,12 +626,14 @@
         }
         animate();
 
+        // Resize Handling
         window.addEventListener('resize', () => {
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
             renderer.setSize(window.innerWidth, window.innerHeight);
         });
 
+        // Scroll Reveal Observer
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
