@@ -51,6 +51,10 @@
         .content-card { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 18px; transition: all 0.4s ease; }
         .content-card:hover { border-color: rgba(255, 255, 255, 0.3); transform: translateY(-4px); background: rgba(255, 255, 255, 0.05); }
         .phase-label { letter-spacing: 0.3em; font-size: 0.7rem; text-transform: uppercase; color: rgba(255,255,255,0.6); }
+        
+        /* Library Card Highlight */
+        .library-highlight { border-color: rgba(56, 189, 248, 0.3); box-shadow: 0 0 30px rgba(56, 189, 248, 0.05); }
+        .library-highlight:hover { border-color: rgba(56, 189, 248, 0.6); box-shadow: 0 0 40px rgba(56, 189, 248, 0.1); }
     </style>
 </head>
 <body class="antialiased">
@@ -113,48 +117,53 @@
                             <p class="text-xs uppercase tracking-[0.3em] text-white/60">Price</p>
                             <p class="text-2xl font-bold">Free（無料）</p>
                         </div>
-                        <a href="https://script.google.com/macros/s/AKfycbwDP0d67qtifyms2h67LawjNWJi_Lh44faPC7Z4axfS_Gdmjzcd50rcl_kmTYBTysKirQ/exec" target="_blank" class="inline-flex items-center justify-center px-8 py-3 border border-white/30 rounded-full text-sm font-bold hover:bg-white hover:text-black transition">Join Community</a>
+                        <a href="https://line.me/R/ti/p/@YOUR_LINE_ID" target="_blank" class="inline-flex items-center justify-center px-8 py-3 border border-white/30 rounded-full text-sm font-bold hover:bg-white hover:text-black transition">Join Community</a>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="section-padding bg-brand-bg" aria-labelledby="phase02">
+        <section class="section-padding bg-brand-bg relative" aria-labelledby="phase02">
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-brand-accent/5 rounded-full blur-[100px] -z-10"></div>
+            
             <div class="max-w-5xl mx-auto px-6 space-y-8">
                 <div>
-                    <p class="phase-label">PHASE 02 – Asset Building</p>
+                    <p class="phase-label text-brand-accent">PHASE 02 – Asset Building</p>
                     <h2 id="phase02" class="text-3xl md:text-4xl font-bold mt-4 mb-4">Library Member｜Efficiency &amp; Tools</h2>
                     <p class="text-brand-accent text-sm font-semibold">月額 ¥2,980（税込）｜臨床の時間を縮めながら、いつでも収益化に転換できる「下地」をつくるレイヤー</p>
                     <p class="text-white/80 text-lg leading-relaxed mt-4">Library Member は、「まずは本業をラクにしたい」「そのうえで将来の副業や発信の準備をしておきたい」医療者のための、実務ツールと知識のライブラリです。AIを使った業務効率化テンプレートにくわえ、将来のMaster Class受講費に充当できる「積立割引（Tuition Credit）」で、学びと投資を両立させます。</p>
                 </div>
                 <div class="grid md:grid-cols-3 gap-6">
-                    <div class="content-card p-6 space-y-3">
+                    <div class="content-card p-6 space-y-3 library-highlight">
                         <p class="text-xs tracking-[0.2em] uppercase text-white/50">Value 01</p>
-                        <h3 class="text-xl font-bold">Premium Note Mirror</h3>
+                        <h3 class="text-xl font-bold text-brand-accent">Premium Note Mirror</h3>
                         <p class="text-white/80 text-sm leading-relaxed">Cursorversが Note で販売する有料記事を、Library会員は Discord の会員限定チャンネルで全文閲覧できます。「記事を何本も単品購入するくらいなら、Libraryに入った方が安い」状態を目指します。</p>
                     </div>
-                    <div class="content-card p-6 space-y-3">
+                    <div class="content-card p-6 space-y-3 library-highlight">
                         <p class="text-xs tracking-[0.2em] uppercase text-white/50">Value 02</p>
-                        <h3 class="text-xl font-bold">Verified Prompt Library</h3>
+                        <h3 class="text-xl font-bold text-brand-accent">Verified Prompt</h3>
                         <p class="text-white/80 text-sm leading-relaxed">紹介状、サマリー、抄録ドラフト、カンファレンス準備など、臨床・研究・事務で使える「動作検証済みプロンプト」を、最新のモデルにあわせて毎月メンテナンス。コピペで微調整するだけの状態に保ちます。</p>
                     </div>
-                    <div class="content-card p-6 space-y-3">
+                    <div class="content-card p-6 space-y-3 library-highlight">
                         <p class="text-xs tracking-[0.2em] uppercase text-white/50">Value 03</p>
-                        <h3 class="text-xl font-bold">Tuition Credit</h3>
+                        <h3 class="text-xl font-bold text-brand-accent">Tuition Credit</h3>
                         <p class="text-white/80 text-sm leading-relaxed">毎月の会費 ¥2,980 は、将来受講する Master Class（¥380,000）の受講費として全額積立。12ヶ月継続で ¥35,760 の割引に。解約でリセットされるため、続けるほどお得になる仕組みです。</p>
                     </div>
                 </div>
-                <div class="content-card p-8 space-y-4">
+                <div class="content-card library-highlight p-8 space-y-4">
                     <ul class="list-disc pl-5 text-white/80 text-sm space-y-2">
                         <li>副業や情報発信に使える、医療イラストや免責文テンプレートなどの著作権クリア素材（順次追加）</li>
                         <li>最新の医療×AIトレンド、収益化事例のミニレポート（Library限定先行配信）</li>
                     </ul>
-                    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 pt-4 border-t border-white/10 mt-4">
                         <div>
                             <p class="text-xs uppercase tracking-[0.3em] text-white/60">Price</p>
-                            <p class="text-2xl font-bold">¥2,980 / Month（税込）</p>
+                            <p class="text-2xl font-bold text-white">¥2,980 <span class="text-sm font-normal text-white/60">/ Month（税込）</span></p>
                         </div>
-                        <a href="https://script.google.com/macros/s/AKfycbwDP0d67qtifyms2h67LawjNWJi_Lh44faPC7Z4axfS_Gdmjzcd50rcl_kmTYBTysKirQ/exec" target="_blank" class="inline-flex items-center justify-center px-8 py-3 rounded-full bg-white text-black text-sm font-bold hover:bg-brand-accent hover:text-black transition">Join Library</a>
+                        
+                        <a href="YOUR_STRIPE_LINK_HERE" target="_blank" class="inline-flex items-center justify-center px-8 py-3 rounded-full bg-brand-accent text-black text-sm font-bold hover:bg-white transition shadow-lg shadow-brand-accent/20">
+                            Join Library
+                        </a>
                     </div>
                 </div>
             </div>
