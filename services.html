@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cursorvers Edu | Services</title>
+    <meta name="description" content="Cursorvers Edu のサービス一覧。医療者のためのAIリテラシーと臨床知の資産化プログラムを紹介します。">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Noto Sans JP"', 'sans-serif']
+                    },
+                    colors: {
+                        'brand-bg': '#050505',
+                        'brand-surface': '#0F0F10',
+                        'brand-accent': '#38BDF8',
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards'
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: 0, transform: 'translateY(20px)' },
+                            '100%': { opacity: 1, transform: 'translateY(0)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #050505;
+            color: #FFFFFF;
+            overflow-x: hidden;
+            font-feature-settings: "palt";
+            font-family: "Noto Sans JP", system-ui, sans-serif;
+        }
+        .section-padding { padding-top: 120px; padding-bottom: 120px; }
+        .glass-nav { background: rgba(5, 5, 5, 0.8); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+        .content-card { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 18px; transition: all 0.4s ease; }
+        .content-card:hover { border-color: rgba(255, 255, 255, 0.3); transform: translateY(-4px); background: rgba(255, 255, 255, 0.05); }
+        .phase-label { letter-spacing: 0.3em; font-size: 0.7rem; text-transform: uppercase; color: rgba(255,255,255,0.6); }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="fixed w-full z-50 glass-nav transition-all duration-300" data-mobile-menu-root data-mobile-menu-theme="dark">
+        <div class="max-w-7xl mx-auto px-6 h-24 flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-3 group" data-mobile-brand>
+                <img src="Cursorvers_logo1.jpeg" onerror="this.style.display='none'" alt="Logo" class="h-10 w-10 rounded-full border border-white/20 shadow-lg group-hover:border-white transition">
+                <span class="text-xl font-bold tracking-tight text-white">Cursorvers.edu</span>
+            </a>
+            <nav class="hidden md:flex items-center gap-10 text-sm font-medium text-white/80" data-desktop-nav>
+                <a href="index.html#mission" class="hover:text-white transition duration-300">Mission</a>
+                <a href="index.html#solutions" class="hover:text-white transition duration-300">Solutions</a>
+                <a href="services.html" class="text-white font-semibold">Services</a>
+                <a href="index.html#company" class="hover:text-white transition duration-300">Company</a>
+                <a href="https://note.com/nice_wren7963" target="_blank" class="hover:text-white transition duration-300">Journal <i class="fa-solid fa-arrow-up-right-from-square text-xs ml-1"></i></a>
+            </nav>
+            <div class="flex items-center gap-6">
+                <a href="https://script.google.com/macros/s/AKfycbwDP0d67qtifyms2h67LawjNWJi_Lh44faPC7Z4axfS_Gdmjzcd50rcl_kmTYBTysKirQ/exec" target="_blank" class="text-xs font-bold border border-white/30 px-6 py-3 rounded-full hover:bg-white hover:text-black transition duration-300 text-white" data-mobile-contact>
+                    Contact
+                </a>
+                <button type="button" class="md:hidden text-white text-xl" data-mobile-menu-open aria-controls="mobile-menu" aria-expanded="false" aria-label="メニューを開く"><i class="fa-solid fa-bars"></i></button>
+            </div>
+        </div>
+    </header>
+
+    <main class="pt-32 pb-24 bg-brand-bg text-white">
+        <section class="section-padding pt-32 pb-16" aria-labelledby="services-hero">
+            <div class="max-w-4xl mx-auto px-6 text-center space-y-6">
+                <p class="text-[10px] tracking-[0.4em] uppercase font-bold text-white/60">Our Services</p>
+                <h1 id="services-hero" class="text-4xl md:text-6xl font-black tracking-tight">Services｜サービス一覧</h1>
+                <p class="text-lg text-white/80">医療者がAIを味方につけて、臨床知を「資産」に変えていくための<br class="hidden md:block">3つのレイヤーをご用意しています。</p>
+                <p class="text-base md:text-lg text-white/80 leading-relaxed">
+                    Cursorvers Edu は、個人の医師・医療従事者向けの「AIリテラシー」「業務効率化」「臨床知の資産化」に特化した教育プログラムです。<br class="hidden md:block">ここで紹介するサービスはすべて、診断や治療方針を指示するものではなく、あなた自身が安全にAIを使いこなし、キャリアと収益源をデザインするための情報提供・スキル提供を目的としています。
+                </p>
+                <p class="text-xs text-white/60">※本ページの内容は情報提供のみを目的としており、個別の診断・治療・投薬等の医療判断を行うものではありません。</p>
+            </div>
+        </section>
+
+        <section class="section-padding bg-brand-surface" aria-labelledby="phase01">
+            <div class="max-w-5xl mx-auto px-6 space-y-8">
+                <div>
+                    <p class="phase-label">PHASE 01 – Individual Literacy</p>
+                    <h2 id="phase01" class="text-3xl md:text-4xl font-bold mt-4 mb-4">Free Community｜Safety &amp; Literacy（無料）</h2>
+                    <p class="text-white/80 text-lg leading-relaxed">まずは「事故らない」ためのAIリテラシーを身につける無料フェーズです。医療者の方が、免許やキャリアを危険にさらすことなくAIを試せるように、最低限おさえておきたいリスクと守り方をコンパクトに学びます。</p>
+                </div>
+                <div class="content-card p-8 space-y-6">
+                    <ul class="space-y-4 text-white/90">
+                        <li>・リスク診断ボット：あなたのAI活用の「危ないところ」をセルフチェック</li>
+                        <li>・安全プロンプト集（Lite）：炎上・バレ・誤情報を避けるための質問テンプレ</li>
+                        <li>・医療副業・情報発信の安全ガイド（ライト版）</li>
+                        <li>・LINEでの最新AI副業トレンド／事例紹介（週1〜2回配信）</li>
+                    </ul>
+                    <div class="text-sm text-white/60 space-y-2">
+                        <p>・AIに興味はあるが、まずは様子を見たい勤務医・看護師・コメディカルの方</p>
+                        <p>・「何がNGか」だけでも先に押さえておきたい方</p>
+                    </div>
+                    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                        <div>
+                            <p class="text-xs uppercase tracking-[0.3em] text-white/60">Price</p>
+                            <p class="text-2xl font-bold">Free（無料）</p>
+                        </div>
+                        <a href="https://script.google.com/macros/s/AKfycbwDP0d67qtifyms2h67LawjNWJi_Lh44faPC7Z4axfS_Gdmjzcd50rcl_kmTYBTysKirQ/exec" target="_blank" class="inline-flex items-center justify-center px-8 py-3 border border-white/30 rounded-full text-sm font-bold hover:bg-white hover:text-black transition">Join Community</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-padding bg-brand-bg" aria-labelledby="phase02">
+            <div class="max-w-5xl mx-auto px-6 space-y-8">
+                <div>
+                    <p class="phase-label">PHASE 02 – Asset Building</p>
+                    <h2 id="phase02" class="text-3xl md:text-4xl font-bold mt-4 mb-4">Library Member｜Efficiency &amp; Tools</h2>
+                    <p class="text-brand-accent text-sm font-semibold">月額 ¥2,980（税込）｜臨床の時間を縮めながら、いつでも収益化に転換できる「下地」をつくるレイヤー</p>
+                    <p class="text-white/80 text-lg leading-relaxed mt-4">Library Member は、「まずは本業をラクにしたい」「そのうえで将来の副業や発信の準備をしておきたい」医療者のための、実務ツールと知識のライブラリです。AIを使った業務効率化テンプレートにくわえ、将来のMaster Class受講費に充当できる「積立割引（Tuition Credit）」で、学びと投資を両立させます。</p>
+                </div>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="content-card p-6 space-y-3">
+                        <p class="text-xs tracking-[0.2em] uppercase text-white/50">Value 01</p>
+                        <h3 class="text-xl font-bold">Premium Note Mirror</h3>
+                        <p class="text-white/80 text-sm leading-relaxed">Cursorversが Note で販売する有料記事を、Library会員は Discord の会員限定チャンネルで全文閲覧できます。「記事を何本も単品購入するくらいなら、Libraryに入った方が安い」状態を目指します。</p>
+                    </div>
+                    <div class="content-card p-6 space-y-3">
+                        <p class="text-xs tracking-[0.2em] uppercase text-white/50">Value 02</p>
+                        <h3 class="text-xl font-bold">Verified Prompt Library</h3>
+                        <p class="text-white/80 text-sm leading-relaxed">紹介状、サマリー、抄録ドラフト、カンファレンス準備など、臨床・研究・事務で使える「動作検証済みプロンプト」を、最新のモデルにあわせて毎月メンテナンス。コピペで微調整するだけの状態に保ちます。</p>
+                    </div>
+                    <div class="content-card p-6 space-y-3">
+                        <p class="text-xs tracking-[0.2em] uppercase text-white/50">Value 03</p>
+                        <h3 class="text-xl font-bold">Tuition Credit</h3>
+                        <p class="text-white/80 text-sm leading-relaxed">毎月の会費 ¥2,980 は、将来受講する Master Class（¥380,000）の受講費として全額積立。12ヶ月継続で ¥35,760 の割引に。解約でリセットされるため、続けるほどお得になる仕組みです。</p>
+                    </div>
+                </div>
+                <div class="content-card p-8 space-y-4">
+                    <ul class="list-disc pl-5 text-white/80 text-sm space-y-2">
+                        <li>副業や情報発信に使える、医療イラストや免責文テンプレートなどの著作権クリア素材（順次追加）</li>
+                        <li>最新の医療×AIトレンド、収益化事例のミニレポート（Library限定先行配信）</li>
+                    </ul>
+                    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                        <div>
+                            <p class="text-xs uppercase tracking-[0.3em] text-white/60">Price</p>
+                            <p class="text-2xl font-bold">¥2,980 / Month（税込）</p>
+                        </div>
+                        <a href="https://script.google.com/macros/s/AKfycbwDP0d67qtifyms2h67LawjNWJi_Lh44faPC7Z4axfS_Gdmjzcd50rcl_kmTYBTysKirQ/exec" target="_blank" class="inline-flex items-center justify-center px-8 py-3 rounded-full bg-white text-black text-sm font-bold hover:bg-brand-accent hover:text-black transition">Join Library</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-padding bg-brand-surface" aria-labelledby="phase03">
+            <div class="max-w-5xl mx-auto px-6 space-y-8">
+                <div>
+                    <p class="phase-label">PHASE 03 – Governance Master Class</p>
+                    <h2 id="phase03" class="text-3xl md:text-4xl font-bold mt-4 mb-4">Master Class｜Clinical Asset Mastery</h2>
+                    <p class="text-brand-accent text-sm font-semibold">¥380,000 / 3 Months（税抜）｜臨床知を「眠らない資産」に変え、AIとともにキャリアをデザインする3ヶ月集中プログラム</p>
+                    <p class="text-white/80 text-lg leading-relaxed mt-4">Master Class は、監査員を育てる講座ではありません。あなた自身の臨床経験をベースに、AIを「第3の脳」として使いこなしながら、内発的な収益モデルとキャリアの選択肢を増やしていくための実践プログラムです。「守りが鉄壁だからこそ、大胆に攻められる」というコンセプトのもと、コンテンツ設計・マネタイズ・セルフガバナンスを一気通貫で学びます。</p>
+                </div>
+                <div class="content-card p-8 space-y-6">
+                    <div>
+                        <h3 class="text-xl font-bold mb-3">モジュール例</h3>
+                        <ul class="list-disc pl-5 text-white/85 space-y-3 text-sm leading-relaxed">
+                            <li><strong>Clinical Asset Design</strong> — ニュースレター、note、有料メルマガ、オンライン講座、コミュニティなど、あなたの臨床知をどのフォーマットに落とし込むと価値が最大化するかを設計します。</li>
+                            <li><strong>AI Workflow &amp; The 3rd Brain</strong> — 情報収集から公開・改善までをAIと分担するワークフローを構築し、「手と頭を空ける」習慣を身につけます。</li>
+                            <li><strong>Safe Creator Practice（セルフガバナンス）</strong> — 著作権、薬機法、各種ガイドラインを前提に、自分の発信・副業・コラボを守るためのマイルールとチェックリストを作成。所属組織のルールも踏まえ、「この人なら安心してAIの相談ができる」と思われる立ち回り方を学びます。</li>
+                            <li><strong>Launch &amp; Review</strong> — 実際に小さくローンチし、フィードバックを受けながら改善。3ヶ月終了時に「継続的に回せる仕組み」と「次の一手」を明確にします。</li>
+                        </ul>
+                    </div>
+                    <div class="space-y-3 text-sm text-white/80">
+                        <h3 class="text-lg font-bold">Certification</h3>
+                        <p>プログラム修了者には <strong>Certified AI-Safe Creator（公認AI活用者）</strong> の修了証を発行します。これは組織の監査資格ではなく、「AIを安全に活用しながら、臨床知を発信・資産化できる個人」であることを示すものです。</p>
+                    </div>
+                    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                        <div>
+                            <p class="text-xs uppercase tracking-[0.3em] text-white/60">Price</p>
+                            <p class="text-2xl font-bold">¥380,000 / 3 Months（税抜）</p>
+                        </div>
+                        <a href="https://script.google.com/macros/s/AKfycbwDP0d67qtifyms2h67LawjNWJi_Lh44faPC7Z4axfS_Gdmjzcd50rcl_kmTYBTysKirQ/exec" target="_blank" class="inline-flex items-center justify-center px-8 py-3 border border-white/30 rounded-full text-sm font-bold hover:bg-white hover:text-black transition">Apply Master</a>
+                    </div>
+                    <p class="text-xs text-white/50">※本プログラムは、医療機関としての診断・治療・AI運用の可否を判断したり、組織の監査・認証を行うものではありません。組織レベルの判断が必要な場合は、各医療機関が適切な専門家と連携してください。</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-padding bg-brand-bg" aria-labelledby="disclaimer">
+            <div class="max-w-5xl mx-auto px-6 content-card p-8">
+                <h2 id="disclaimer" class="text-xl font-bold mb-4">【重要なご案内】</h2>
+                <ul class="text-white/80 text-sm space-y-3 leading-relaxed list-disc pl-5">
+                    <li>Cursorvers Eduで提供する各種サービスは、すべて教育・情報提供を目的としたものであり、特定の医薬品・医療機器・治療法の効果を保証したり、診断・治療方針を指示するものではありません。</li>
+                    <li>最終的な医療判断（診断・治療・投薬・検査の要否など）は、必ず現場の主治医・医療機関の責任のもとで行われます。</li>
+                    <li>Trademarks and brand names are the property of their respective owners and are used for identification only. No endorsement implied.</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-[#020203] border-t border-white/10 py-16 text-xs text-white/60 relative z-10">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-start gap-16">
+                <div class="max-w-xs">
+                    <div class="flex items-center gap-2 mb-4">
+                        <img src="Cursorvers_logo1.jpeg" onerror="this.style.display='none'" alt="Logo" class="h-6 w-6 rounded-full border border-white/10">
+                        <span class="text-white font-bold text-base font-mono">Cursorvers.edu</span>
+                    </div>
+                    <p class="leading-relaxed opacity-80">Building trust in Medical AI through governance and education.</p>
+                </div>
+                <div class="flex gap-16">
+                    <div>
+                        <h4 class="text-white font-bold mb-4">Services</h4>
+                        <ul class="space-y-2">
+                            <li><a href="services.html" class="hover:text-white transition">Overview</a></li>
+                            <li><a href="index.html#mission" class="hover:text-white transition">Mission</a></li>
+                            <li><a href="index.html#solutions" class="hover:text-white transition">Roadmap</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-white font-bold mb-4">Legal</h4>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="hover:text-white transition">Privacy Policy</a></li>
+                            <li><a href="#" class="hover:text-white transition">Terms of Service</a></li>
+                            <li><a href="#" class="hover:text-white transition">特定商取引法に基づく表記</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p>&copy; 2025 Cursorvers Inc. All Rights Reserved.</p>
+                <div class="flex gap-6 text-lg">
+                    <a href="#" class="hover:text-white transition"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="#" class="hover:text-white transition"><i class="fa-brands fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('active');
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        const menuBtn = document.querySelector('[data-mobile-menu-open]');
+        const nav = document.querySelector('[data-desktop-nav]');
+        if (menuBtn && nav) {
+            let mobileMenu = null;
+            const createMenu = () => {
+                if (mobileMenu) return;
+                mobileMenu = document.createElement('div');
+                mobileMenu.id = 'mobile-menu';
+                mobileMenu.className = 'fixed inset-0 z-[60] bg-[#050505] flex flex-col';
+                mobileMenu.innerHTML = `
+                    <div class="flex items-center justify-between h-24 px-6 border-b border-white/10">
+                        <a href="index.html" class="flex items-center gap-3">
+                            <img src="Cursorvers_logo1.jpeg" onerror="this.style.display='none'" alt="Logo" class="h-10 w-10 rounded-full border border-white/20">
+                            <span class="text-xl font-bold tracking-tight text-white">Cursorvers.edu</span>
+                        </a>
+                        <button type="button" class="text-white text-2xl" aria-label="メニューを閉じる" id="mobile-menu-close">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
+                    <nav class="flex-1 flex flex-col items-center justify-center gap-8 text-lg font-medium" id="mobile-nav-links"></nav>
+                    <div class="px-6 pb-10 text-center">
+                        <a href="https://script.google.com/macros/s/AKfycbwDP0d67qtifyms2h67LawjNWJi_Lh44faPC7Z4axfS_Gdmjzcd50rcl_kmTYBTysKirQ/exec" target="_blank" class="inline-block text-xs font-bold border border-white/30 px-8 py-4 rounded-full hover:bg-white hover:text-black transition text-white">Contact</a>
+                    </div>
+                `;
+                document.body.appendChild(mobileMenu);
+                const navLinks = mobileMenu.querySelector('#mobile-nav-links');
+                nav.querySelectorAll('a').forEach(link => {
+                    const clone = link.cloneNode(true);
+                    clone.className = 'text-xl font-semibold text-white hover:text-brand-accent transition py-2 text-center';
+                    clone.addEventListener('click', closeMenu);
+                    navLinks.appendChild(clone);
+                });
+                mobileMenu.querySelector('#mobile-menu-close').addEventListener('click', closeMenu);
+            };
+            const openMenu = () => {
+                createMenu();
+                mobileMenu.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+                menuBtn.setAttribute('aria-expanded', 'true');
+            };
+            const closeMenu = () => {
+                if (mobileMenu) mobileMenu.style.display = 'none';
+                document.body.style.overflow = '';
+                menuBtn.setAttribute('aria-expanded', 'false');
+            };
+            menuBtn.addEventListener('click', openMenu);
+            document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
+        }
+    </script>
+</body>
+</html>
