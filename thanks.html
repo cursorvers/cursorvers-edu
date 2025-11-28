@@ -28,56 +28,86 @@
         }
     </script>
     <style>
-        body {
+        :root {
             font-family: 'Noto Sans JP', sans-serif;
+        }
+        body {
             background-color: #050505;
-            color: white;
+            color: #F9FAFB;
             min-height: 100vh;
         }
         .gradient-bg {
-            background: radial-gradient(ellipse at top, rgba(56, 189, 248, 0.1) 0%, transparent 50%);
+            background:
+                radial-gradient(circle at 15% 20%, rgba(56,189,248,0.25), transparent 55%),
+                radial-gradient(circle at 80% 0%, rgba(168,85,247,0.15), transparent 50%),
+                #050505;
+        }
+        .glass-panel {
+            background: linear-gradient(135deg, rgba(15,15,16,0.85), rgba(10,10,11,0.65));
+            border: 1px solid rgba(255,255,255,0.08);
+            box-shadow: 0 25px 80px rgba(0,0,0,0.55);
         }
         .card-glow {
-            box-shadow: 0 0 40px rgba(56, 189, 248, 0.1);
+            box-shadow: 0 0 50px rgba(56,189,248,0.12);
         }
         @keyframes float {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+            50% { transform: translateY(-12px); }
         }
         .float-animation {
-            animation: float 3s ease-in-out infinite;
+            animation: float 4s ease-in-out infinite;
         }
         @keyframes pulse-ring {
-            0% { transform: scale(0.8); opacity: 1; }
+            0% { transform: scale(0.75); opacity: 0.9; }
             100% { transform: scale(1.4); opacity: 0; }
         }
         .pulse-ring::before {
             content: '';
             position: absolute;
-            inset: -8px;
-            border-radius: 50%;
-            border: 2px solid rgba(56, 189, 248, 0.5);
-            animation: pulse-ring 2s ease-out infinite;
+            inset: -14px;
+            border-radius: 999px;
+            border: 2px solid rgba(56, 189, 248, 0.45);
+            animation: pulse-ring 3s ease-out infinite;
         }
     </style>
 </head>
-<body class="gradient-bg">
+<body class="gradient-bg text-white">
 
-    <div class="min-h-screen flex flex-col items-center justify-center p-6">
-        <div class="max-w-md w-full space-y-8">
+    <div class="min-h-screen flex flex-col items-center justify-center p-6 sm:p-10">
+        <div class="max-w-2xl w-full space-y-10 glass-panel rounded-3xl p-8 sm:p-12 backdrop-blur-2xl">
             
             <!-- Success Icon -->
-            <div class="text-center">
-                <div class="relative inline-block float-animation">
-                    <div class="text-7xl mb-4 relative pulse-ring">🎉</div>
+            <div class="text-center space-y-5">
+                <div class="relative inline-flex items-center justify-center w-28 h-28 md:w-32 md:h-32 rounded-full overflow-hidden float-animation">
+                    <div class="absolute inset-[1px] rounded-full bg-gradient-to-br from-brand-accent via-white/20 to-violet-400 opacity-70 blur-xl"></div>
+                    <div class="relative w-full h-full rounded-[50%] bg-gradient-to-b from-white/15 via-white/5 to-transparent border border-white/20 flex items-center justify-center">
+                        <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" class="drop-shadow-[0_15px_35px_rgba(56,189,248,0.35)]">
+                            <path d="M11 46L38 19" stroke="url(#grad1)" stroke-width="3.2" stroke-linecap="round"/>
+                            <path d="M24 48L45 27" stroke="url(#grad2)" stroke-width="3.2" stroke-linecap="round"/>
+                            <circle cx="48" cy="16" r="3" fill="#38BDF8"/>
+                            <circle cx="20" cy="11" r="2.4" fill="#FDE68A"/>
+                            <circle cx="54" cy="30" r="2.8" fill="#F472B6"/>
+                            <defs>
+                                <linearGradient id="grad1" x1="11" y1="46" x2="38" y2="19" gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#38BDF8"/>
+                                    <stop offset="1" stop-color="#C084FC"/>
+                                </linearGradient>
+                                <linearGradient id="grad2" x1="24" y1="48" x2="45" y2="27" gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#FDE68A"/>
+                                    <stop offset="1" stop-color="#38BDF8"/>
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
                 </div>
-                <h1 class="text-3xl md:text-4xl font-bold text-white tracking-tight">Welcome Aboard.</h1>
-                <p class="text-brand-accent text-sm font-medium mt-2 tracking-wider">LIBRARY MEMBER</p>
+                <p class="text-xs uppercase tracking-[0.5em] text-brand-accent/80">Library Member</p>
+                <h1 class="text-4xl md:text-5xl font-black tracking-tight leading-tight">ようこそ、Cursorvers Libraryへ</h1>
+                <p class="text-white/70 text-sm uppercase tracking-[0.6em]">Defense First, Wealth Next</p>
             </div>
 
             <!-- Message -->
             <div class="text-center space-y-2">
-                <p class="text-gray-300 text-lg">
+                <p class="text-white text-lg">
                     決済が完了しました。
                 </p>
                 <p class="text-gray-400">
@@ -92,7 +122,7 @@
                         <i class="fa-solid fa-circle-check"></i>
                         <span class="text-sm font-medium">次のステップ</span>
                     </div>
-                    <p class="text-gray-300 text-sm leading-relaxed">
+                    <p class="text-white/90 text-sm leading-relaxed">
                         以下のボタンからコミュニティ（Discord）に参加し、<br>
                         Botの案内に従ってロールを受け取ってください。
                     </p>
@@ -106,8 +136,8 @@
                 </a>
 
                 <!-- Note -->
-                <div class="bg-white/5 rounded-lg p-4 space-y-2">
-                    <p class="text-xs text-gray-400 flex items-start gap-2">
+                <div class="bg-white/10 rounded-lg p-4 space-y-2">
+                    <p class="text-xs text-white/80 flex items-start gap-2">
                         <i class="fa-solid fa-info-circle mt-0.5 text-brand-accent"></i>
                         <span>
                             Discordアカウントをお持ちでない場合は、先にアカウントを作成してください。
@@ -118,9 +148,9 @@
             </div>
 
             <!-- Benefits Preview -->
-            <div class="bg-brand-surface/50 border border-white/5 rounded-xl p-5 space-y-3">
-                <p class="text-xs text-gray-500 uppercase tracking-wider">Your Benefits</p>
-                <ul class="space-y-2 text-sm text-gray-400">
+            <div class="bg-brand-surface/70 border border-white/10 rounded-xl p-6 space-y-3">
+                <p class="text-xs text-white/70 uppercase tracking-[0.4em]">What Usted Unlocks</p>
+                <ul class="space-y-2 text-sm text-white/80">
                     <li class="flex items-center gap-2">
                         <i class="fa-solid fa-check text-brand-accent text-xs"></i>
                         Premium Note Mirror（有料記事の全文閲覧）
