@@ -18,9 +18,10 @@
                         sans: ['"Noto Sans JP"', 'sans-serif'],
                     },
                     colors: {
-                        'brand-bg': '#050505',
-                        'brand-surface': '#0F0F10',
-                        'brand-accent': '#38BDF8',
+                        'brand-bg': '#050202',
+                        'brand-surface': '#0F0505',
+                        'brand-flame': '#FF4500',
+                        'brand-gold': '#FFD700',
                         'discord': '#5865F2',
                     },
                 }
@@ -32,23 +33,23 @@
             font-family: 'Noto Sans JP', sans-serif;
         }
         body {
-            background-color: #050505;
+            background-color: #050202;
             color: #F9FAFB;
             min-height: 100vh;
         }
         .gradient-bg {
             background:
-                radial-gradient(circle at 15% 20%, rgba(56,189,248,0.25), transparent 55%),
-                radial-gradient(circle at 80% 0%, rgba(168,85,247,0.15), transparent 50%),
-                #050505;
+                radial-gradient(circle at 15% 20%, rgba(255,69,0,0.18), transparent 55%),
+                radial-gradient(circle at 80% 0%, rgba(255,215,0,0.12), transparent 50%),
+                #050202;
         }
         .glass-panel {
-            background: linear-gradient(135deg, rgba(15,15,16,0.85), rgba(10,10,11,0.65));
-            border: 1px solid rgba(255,255,255,0.08);
+            background: linear-gradient(135deg, rgba(15,5,5,0.9), rgba(10,4,4,0.7));
+            border: 1px solid rgba(255,69,0,0.18);
             box-shadow: 0 25px 80px rgba(0,0,0,0.55);
         }
         .card-glow {
-            box-shadow: 0 0 50px rgba(56,189,248,0.12);
+            box-shadow: 0 0 50px rgba(255,69,0,0.14);
         }
         @keyframes float {
             0%, 100% { transform: translateY(0); }
@@ -79,7 +80,7 @@
             <!-- Success Icon -->
             <div class="text-center space-y-5">
                 <div class="relative inline-flex items-center justify-center w-28 h-28 md:w-32 md:h-32 rounded-full overflow-hidden float-animation">
-                    <div class="absolute inset-[1px] rounded-full bg-gradient-to-br from-brand-accent via-white/20 to-violet-400 opacity-70 blur-xl"></div>
+                    <div class="absolute inset-[1px] rounded-full bg-gradient-to-br from-brand-flame via-white/20 to-brand-gold opacity-70 blur-xl"></div>
                     <div class="relative w-full h-full rounded-[50%] bg-gradient-to-b from-white/15 via-white/5 to-transparent border border-white/20 flex items-center justify-center">
                         <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" class="drop-shadow-[0_15px_35px_rgba(56,189,248,0.35)]">
                             <path d="M11 46L38 19" stroke="url(#grad1)" stroke-width="3.2" stroke-linecap="round"/>
@@ -100,7 +101,7 @@
                         </svg>
                     </div>
                 </div>
-                <p class="text-xs uppercase tracking-[0.5em] text-brand-accent/80">Library Member</p>
+                <p class="text-xs uppercase tracking-[0.5em] text-brand-flame/80">Library Member</p>
                 <h1 class="text-4xl md:text-5xl font-black tracking-tight leading-tight">ようこそ、Cursorvers Libraryへ</h1>
                 <p class="text-white/70 text-sm uppercase tracking-[0.6em]">Defense First, Wealth Next</p>
             </div>
@@ -118,7 +119,7 @@
             <!-- Discord Card -->
             <div class="bg-brand-surface border border-white/10 p-6 md:p-8 rounded-2xl space-y-6 card-glow">
                 <div class="space-y-3">
-                    <div class="flex items-center gap-2 text-brand-accent">
+                    <div class="flex items-center gap-2 text-brand-flame">
                         <i class="fa-solid fa-circle-check"></i>
                         <span class="text-sm font-medium">次のステップ</span>
                     </div>
@@ -138,7 +139,7 @@
                 <!-- Note -->
                 <div class="bg-white/10 rounded-lg p-4 space-y-2">
                     <p class="text-xs text-white/80 flex items-start gap-2">
-                        <i class="fa-solid fa-info-circle mt-0.5 text-brand-accent"></i>
+                        <i class="fa-solid fa-info-circle mt-0.5 text-brand-flame"></i>
                         <span>
                             Discordアカウントをお持ちでない場合は、先にアカウントを作成してください。
                             参加後、決済時のメールアドレスで認証を行います。
@@ -152,15 +153,15 @@
                 <p class="text-xs text-white/70 uppercase tracking-[0.4em]">What Usted Unlocks</p>
                 <ul class="space-y-2 text-sm text-white/80">
                     <li class="flex items-center gap-2">
-                        <i class="fa-solid fa-check text-brand-accent text-xs"></i>
+                        <i class="fa-solid fa-check text-brand-flame text-xs"></i>
                         Premium Note Mirror（有料記事の全文閲覧）
                     </li>
                     <li class="flex items-center gap-2">
-                        <i class="fa-solid fa-check text-brand-accent text-xs"></i>
+                        <i class="fa-solid fa-check text-brand-flame text-xs"></i>
                         Verified Prompt（動作検証済みプロンプト集）
                     </li>
                     <li class="flex items-center gap-2">
-                        <i class="fa-solid fa-check text-brand-accent text-xs"></i>
+                        <i class="fa-solid fa-check text-brand-flame text-xs"></i>
                         Tuition Credit（Master Class割引積立）
                     </li>
                 </ul>

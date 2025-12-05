@@ -18,10 +18,11 @@
                         sans: ['"Noto Sans JP"', 'sans-serif'],
                     },
                     colors: {
-                        'brand-bg': '#050505',
-                        'brand-panel': '#0F0F10',
+                        'brand-bg': '#050202',
+                        'brand-panel': '#0F0505',
                         'brand-stroke': '#1F1F23',
-                        'brand-accent': '#FFD369',
+                        'brand-flame': '#FF4500',
+                        'brand-gold': '#FFD700',
                     },
                 },
             },
@@ -30,18 +31,18 @@
     <style>
         body {
             font-family: "Noto Sans JP", system-ui, sans-serif;
-            background-color: #050505;
+            background-color: #050202;
             color: #F7FAFC;
             -webkit-font-smoothing: antialiased;
         }
         .glass-nav {
-            background: rgba(5, 5, 5, 0.85);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            background: rgba(5, 2, 2, 0.85);
+            border-bottom: 1px solid rgba(255, 69, 0, 0.12);
             backdrop-filter: blur(18px);
         }
         .glass-card {
-            background: rgba(15, 15, 16, 0.9);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(15, 5, 5, 0.92);
+            border: 1px solid rgba(255, 69, 0, 0.16);
             border-radius: 24px;
             box-shadow: 0 40px 120px rgba(0, 0, 0, 0.5);
         }
@@ -110,7 +111,7 @@
                         <div class="py-4 grid md:grid-cols-4 gap-4">
                             <dt class="text-white/50 font-semibold">連絡先（フォーム）</dt>
                             <dd class="md:col-span-3">
-                                <a href="https://script.google.com/macros/s/AKfycbwDP0d67qtifyms2h67LawjNWJi_Lh44faPC7Z4axfS_Gdmjzcd50rcl_kmTYBTysKirQ/exec" target="_blank" rel="noopener" class="text-brand-accent hover:underline">Contact Form</a>
+                                <a href="https://script.google.com/macros/s/AKfycbwDP0d67qtifyms2h67LawjNWJi_Lh44faPC7Z4axfS_Gdmjzcd50rcl_kmTYBTysKirQ/exec" target="_blank" rel="noopener" class="text-brand-flame hover:underline">Contact Form</a>
                             </dd>
                         </div>
                         <div class="py-4 grid md:grid-cols-4 gap-4">
@@ -243,7 +244,7 @@
                     const navLinks = mobileMenu.querySelector('#mobile-nav-links');
                     nav.querySelectorAll('a').forEach(link => {
                         const clone = link.cloneNode(true);
-                        clone.className = 'text-xl font-semibold text-white hover:text-brand-accent transition py-2 text-center';
+                        clone.className = 'text-xl font-semibold text-white hover:text-brand-flame transition py-2 text-center';
                         clone.addEventListener('click', closeMenu);
                         navLinks.appendChild(clone);
                     });
