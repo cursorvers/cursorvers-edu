@@ -294,7 +294,7 @@
                 </h1>
 
                 <!-- Subheadline -->
-                <p class="mt-8 text-white/80 text-lg md:text-xl font-medium tracking-wide leading-relaxed max-w-3xl md:max-w-5xl animate-fade-in-up text-balance"
+                <p class="mt-8 text-white/80 text-lg md:text-xl font-medium tracking-wide leading-relaxed max-w-full md:max-w-6xl animate-fade-in-up text-balance md:whitespace-nowrap"
                     style="animation-delay: 0.3s;">
                     臨床知を「燃える資産」へ変え、AI時代を生き抜く経済的自律を設計する。<br class="md:inline">
                     個の自律を軸に、組織の防衛力を底上げする。
@@ -505,10 +505,14 @@
                             まずは「事故らない」ためのAIリテラシーを身につける無料フェーズ。免許やキャリアを危険にさらさず試せるよう、最低限おさえておきたいリスクと守り方をコンパクトに学びます。
                         </p>
                         <ul class="mt-4 space-y-2 text-sm text-white/80 leading-relaxed">
-                            <li class="flex gap-2"><i class="fa-solid fa-check text-brand-flame mt-1"></i>リスク診断ボットで危険度セルフチェック</li>
-                            <li class="flex gap-2"><i class="fa-solid fa-check text-brand-flame mt-1"></i>安全プロンプト集（Lite）／炎上・誤情報を回避</li>
-                            <li class="flex gap-2"><i class="fa-solid fa-check text-brand-flame mt-1"></i>医療副業・情報発信の安全ガイド（ライト版）</li>
-                            <li class="flex gap-2"><i class="fa-solid fa-check text-brand-flame mt-1"></i>LINEで最新AI副業トレンドを週1〜2回配信</li>
+                            <li class="flex gap-2"><i
+                                    class="fa-solid fa-check text-brand-flame mt-1"></i>リスク診断ボットで危険度セルフチェック</li>
+                            <li class="flex gap-2"><i
+                                    class="fa-solid fa-check text-brand-flame mt-1"></i>安全プロンプト集（Lite）／炎上・誤情報を回避</li>
+                            <li class="flex gap-2"><i
+                                    class="fa-solid fa-check text-brand-flame mt-1"></i>医療副業・情報発信の安全ガイド（ライト版）</li>
+                            <li class="flex gap-2"><i
+                                    class="fa-solid fa-check text-brand-flame mt-1"></i>LINEで最新AI副業トレンドを週1〜2回配信</li>
                         </ul>
                         <div class="mt-4 text-xs text-white/70 space-y-1">
                             <p>・AIに興味はあるが、まずは様子を見たい勤務医・看護師・コメディカルの方</p>
@@ -794,13 +798,14 @@
                 }
 
                 void main() {
-                    // Base magma flow
+                    // Base magma flow (More subtle/transparent)
                     float flow = sin(vUv.y * 20.0 + uTime + vNoise * 5.0);
                     float intensity = smoothstep(-1.0, 1.0, flow + vNoise);
                     
-                    vec3 color = mix(uColorBase, uColorFire, intensity * 0.3); // Darker base for contrast
+                    // Very dark/subtle base to ensure text readability
+                    vec3 color = mix(uColorBase, uColorFire, intensity * 0.15); 
                     
-                    // Add hotspots (High Quality Dark Core)
+                    // Add hotspots (Sophisticated Dark Core)
                     float totalRing = 0.0;
                     float totalCore = 0.0;
                     
@@ -818,12 +823,12 @@
                             
                             float radius = age * 0.25; // Slower expansion
                             
-                            // Sharp Ring / Shockwave
-                            float ringWidth = 0.015; // Very thin, sharp line
-                            float ring = 1.0 - smoothstep(ringWidth, ringWidth + 0.01, abs(distortedDist - radius));
+                            // Ultra-thin Sharp Ring (Hairline)
+                            float ringWidth = 0.005; // Extremely thin
+                            float ring = 1.0 - smoothstep(ringWidth, ringWidth + 0.008, abs(distortedDist - radius));
                             
-                            // Dark Core Mask (to darken inside)
-                            float core = 1.0 - smoothstep(0.0, radius - 0.02, distortedDist);
+                            // Dark Core Mask
+                            float core = 1.0 - smoothstep(0.0, radius - 0.01, distortedDist);
                             
                             // Fade with age
                             float fade = 1.0 - smoothstep(0.0, 3.0, age);
@@ -834,18 +839,19 @@
                     }
                     
                     // Apply Dark Core: Darken the base color inside the rings
-                    // This creates the "burnt" look and eliminates halation
-                    color *= (1.0 - min(totalCore * 0.8, 0.8));
+                    // "Burnt" look, but subtle
+                    color *= (1.0 - min(totalCore * 0.9, 0.9));
                     
-                    // Apply Sharp Rings: Additive bright fire
-                    vec3 fireRingColor = uColorHot * 3.0; // Very bright
+                    // Apply Sharp Rings: Additive fire, but controlled brightness
+                    // Reduced multiplier to prevent halation
+                    vec3 fireRingColor = uColorHot * 1.8; 
                     color += fireRingColor * totalRing;
 
                     // Vignette
                     float distCenter = distance(vUv, vec2(0.5));
-                    float alpha = (1.0 - smoothstep(0.2, 0.8, distCenter)) * 0.9;
+                    float alpha = (1.0 - smoothstep(0.2, 0.8, distCenter)) * 0.8;
                     
-                    // Ensure rings are always visible
+                    // Ensure rings are visible but not overpowering
                     alpha = max(alpha, totalRing);
 
                     gl_FragColor = vec4(color, alpha);
@@ -897,9 +903,9 @@
             let spotIndex = 0;
             let lastSpawnTime = 0;
 
-            document.addEventListener('mousemove', (e) => {
-                mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
-                mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+            const handleInteraction = (x, y) => {
+                mouse.x = (x / window.innerWidth) * 2 - 1;
+                mouse.y = -(y / window.innerHeight) * 2 + 1;
 
                 raycaster.setFromCamera(mouse, camera);
                 const hits = raycaster.intersectObject(hitPlane);
@@ -914,11 +920,30 @@
                     }
                 }
 
-                // Camera parallax
+                // Camera parallax (reduced for mobile stability if needed, but keeping consistent)
                 camera.position.x += (mouse.x * 2 - camera.position.x) * 0.05;
                 camera.position.y += (5 + mouse.y * 1 - camera.position.y) * 0.05;
                 camera.lookAt(0, 0, 0);
+            };
+
+            document.addEventListener('mousemove', (e) => {
+                handleInteraction(e.clientX, e.clientY);
             });
+
+            // Touch support for iPhone/Mobile
+            document.addEventListener('touchmove', (e) => {
+                if (e.touches.length > 0) {
+                    // Prevent default only if necessary, but usually better to let scroll happen
+                    // e.preventDefault(); 
+                    handleInteraction(e.touches[0].clientX, e.touches[0].clientY);
+                }
+            }, { passive: true });
+
+            document.addEventListener('touchstart', (e) => {
+                if (e.touches.length > 0) {
+                    handleInteraction(e.touches[0].clientX, e.touches[0].clientY);
+                }
+            }, { passive: true });
 
             const clock = new THREE.Clock();
 
