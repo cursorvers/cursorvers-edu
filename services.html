@@ -168,9 +168,9 @@
                             <p class="text-2xl font-bold text-white">¥2,980 <span class="text-sm font-normal text-white/60">/ Month（税込）</span></p>
                         </div>
                         
-                        <a href="https://buy.stripe.com/6oU4gz1YF3Dn63SfB34F200" target="_blank" class="inline-flex items-center justify-center px-8 py-3 rounded-full bg-brand-flame text-white text-sm font-bold hover:bg-brand-flame/80 hover:text-white transition shadow-lg shadow-brand-flame/20">
+                        <button type="button" data-open-library class="inline-flex items-center justify-center px-8 py-3 rounded-full bg-brand-flame text-white text-sm font-bold hover:bg-brand-flame/80 hover:text-white transition shadow-lg shadow-brand-flame/20 focus:outline-none focus:ring-2 focus:ring-brand-flame focus:ring-offset-2 focus:ring-offset-brand-bg">
                             Join Library
-                        </a>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -237,6 +237,70 @@
         </section>
     </main>
 
+    <!-- Library Checkout Modal -->
+    <div id="library-modal" class="fixed inset-0 z-[80] hidden">
+        <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" data-close-library></div>
+        <div class="relative max-w-xl mx-auto mt-24 bg-brand-surface border border-brand-flame/30 rounded-2xl shadow-2xl text-left p-8 md:p-10 space-y-6 mx-4">
+            <div class="flex items-start justify-between gap-4">
+                <div>
+                    <p class="text-xs tracking-[0.3em] uppercase text-brand-flame font-bold">Library Member</p>
+                    <h3 class="text-2xl md:text-3xl font-bold text-white mt-2">決済前の確認</h3>
+                    <p class="text-white/70 text-sm mt-3 leading-relaxed">月額 ¥2,980（税込）。カード情報は表示しません。入力内容は Stripe にのみ送信され、医療情報・PHI は入力しないでください。</p>
+                </div>
+                <button type="button" class="text-white/60 hover:text-white text-xl" aria-label="閉じる" data-close-library>&times;</button>
+            </div>
+
+            <div class="space-y-2 text-sm text-white/80 bg-black/20 rounded-xl p-4 border border-white/10">
+                <div class="flex items-start gap-2">
+                    <span class="w-2 h-2 rounded-full bg-brand-flame mt-1.5"></span>
+                    <p>返金・キャンセル方針、特商法表記を確認のうえ同意してください。</p>
+                </div>
+                <div class="flex items-start gap-2">
+                    <span class="w-2 h-2 rounded-full bg-brand-flame mt-1.5"></span>
+                    <p>メール配信は有料会員のみ／任意オプトイン。チェックがない場合は配信しません。</p>
+                </div>
+                <div class="flex items-start gap-2">
+                    <span class="w-2 h-2 rounded-full bg-brand-flame mt-1.5"></span>
+                    <p>PHI や診療情報は絶対に入力しないでください。</p>
+                </div>
+            </div>
+
+            <form id="library-form" class="space-y-4">
+                <div class="space-y-2">
+                    <label for="library-email" class="text-sm font-semibold text-white">メールアドレス</label>
+                    <input id="library-email" name="email" type="email" required autocomplete="email" class="w-full rounded-lg border border-white/15 bg-black/30 px-4 py-3 text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-brand-flame focus:border-brand-flame">
+                </div>
+
+                <div class="flex items-start gap-3 text-sm text-white/80">
+                    <input id="opt-in-email" name="opt_in_email" type="checkbox" class="mt-1 rounded border-white/25 bg-black/30 text-brand-flame focus:ring-brand-flame">
+                    <label for="opt-in-email" class="leading-relaxed">ニュースレター／アップデートをメールで受け取る（任意）</label>
+                </div>
+
+                <div class="space-y-3 text-sm text-white/80">
+                    <label class="flex items-start gap-3">
+                        <input id="agree-terms" name="agree_terms" type="checkbox" required class="mt-1 rounded border-white/25 bg-black/30 text-brand-flame focus:ring-brand-flame">
+                        <span>利用規約に同意する（リンクは後述）</span>
+                    </label>
+                    <label class="flex items-start gap-3">
+                        <input id="agree-privacy" name="agree_privacy" type="checkbox" required class="mt-1 rounded border-white/25 bg-black/30 text-brand-flame focus:ring-brand-flame">
+                        <span>プライバシーポリシー・特定商取引法表記を確認し同意する</span>
+                    </label>
+                </div>
+
+                <p class="text-xs text-white/60">カード入力は次の画面（Stripe）で行います。こちらのフォームではカード情報を扱いません。</p>
+
+                <div id="library-status" class="text-sm font-semibold"></div>
+
+                <div class="flex flex-col md:flex-row md:justify-end gap-3 pt-2">
+                    <button type="button" data-close-library class="inline-flex justify-center px-5 py-3 rounded-full border border-white/20 text-white/80 hover:text-white hover:border-white/40 transition">戻る</button>
+                    <button type="submit" class="inline-flex justify-center px-6 py-3 rounded-full bg-brand-flame text-white font-bold hover:bg-brand-flame/80 transition focus:outline-none focus:ring-2 focus:ring-brand-flame focus:ring-offset-2 focus:ring-offset-brand-bg">
+                        Stripeで決済に進む
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <footer class="bg-[#020203] border-t border-white/10 py-16 text-xs text-white/60 relative z-10">
         <div class="max-w-7xl mx-auto px-6">
             <div class="flex flex-col md:flex-row justify-between items-start gap-16">
@@ -276,6 +340,10 @@
         </div>
     </footer>
 
+    <script>
+        // 本番エンドポイントをフロント側で指定
+        window.CURSORVERS_CHECKOUT_ENDPOINT = "https://haaxgwyimoqzzxzdaeep.functions.supabase.co/create-checkout-session";
+    </script>
     <script>
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -331,6 +399,111 @@
             };
             menuBtn.addEventListener('click', openMenu);
             document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
+        }
+
+        // --- Library Checkout Modal + API ---
+        const checkoutEndpoint = window.CURSORVERS_CHECKOUT_ENDPOINT || "";
+        const libraryModal = document.getElementById('library-modal');
+        const openLibraryButtons = document.querySelectorAll('[data-open-library]');
+        const closeLibraryTargets = libraryModal ? libraryModal.querySelectorAll('[data-close-library]') : [];
+        const libraryForm = document.getElementById('library-form');
+        const libraryStatus = document.getElementById('library-status');
+        const submitBtn = libraryForm ? libraryForm.querySelector('button[type="submit"]') : null;
+
+        const setStatus = (message, isError = true) => {
+            if (!libraryStatus) return;
+            libraryStatus.textContent = message;
+            libraryStatus.className = isError ? 'text-sm font-semibold text-red-400' : 'text-sm font-semibold text-brand-flame';
+        };
+
+        const openModal = () => {
+            if (!libraryModal) return;
+            libraryModal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+            setStatus('');
+        };
+
+        const closeModal = () => {
+            if (!libraryModal) return;
+            libraryModal.classList.add('hidden');
+            document.body.style.overflow = '';
+        };
+
+        openLibraryButtons.forEach(btn => btn.addEventListener('click', openModal));
+        closeLibraryTargets.forEach(btn => btn.addEventListener('click', closeModal));
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
+
+        if (libraryForm) {
+            libraryForm.addEventListener('submit', async (event) => {
+                event.preventDefault();
+                setStatus('');
+
+                if (!checkoutEndpoint) {
+                    setStatus('決済APIのエンドポイントを設定してください（window.CURSORVERS_CHECKOUT_ENDPOINT）');
+                    return;
+                }
+
+                const emailInput = libraryForm.querySelector('#library-email');
+                const optInInput = libraryForm.querySelector('#opt-in-email');
+                const agreeTermsInput = libraryForm.querySelector('#agree-terms');
+                const agreePrivacyInput = libraryForm.querySelector('#agree-privacy');
+
+                const email = emailInput instanceof HTMLInputElement ? emailInput.value.trim() : '';
+                const optInEmail = optInInput instanceof HTMLInputElement ? optInInput.checked : false;
+                const agreeTerms = agreeTermsInput instanceof HTMLInputElement ? agreeTermsInput.checked : false;
+                const agreePrivacy = agreePrivacyInput instanceof HTMLInputElement ? agreePrivacyInput.checked : false;
+
+                if (!email) {
+                    setStatus('メールアドレスを入力してください');
+                    return;
+                }
+                if (!agreeTerms || !agreePrivacy) {
+                    setStatus('利用規約とプライバシーポリシーへの同意が必要です');
+                    return;
+                }
+
+                if (submitBtn) {
+                    submitBtn.setAttribute('disabled', 'true');
+                    submitBtn.textContent = '送信中...';
+                }
+
+                try {
+                    const response = await fetch(checkoutEndpoint, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            email,
+                            opt_in_email: optInEmail,
+                            agree_terms: agreeTerms,
+                            agree_privacy: agreePrivacy,
+                            tier: 'library',
+                        }),
+                    });
+
+                    const data = await response.json().catch(() => ({}));
+
+                    if (!response.ok) {
+                        throw new Error(data.error || '決済の準備に失敗しました');
+                    }
+
+                    if (!data.url) {
+                        throw new Error('決済URLが取得できませんでした');
+                    }
+
+                    setStatus('Stripeに遷移します...', false);
+                    window.location.href = data.url;
+                } catch (err) {
+                    const message = err instanceof Error ? err.message : '不明なエラーが発生しました';
+                    setStatus(message);
+                } finally {
+                    if (submitBtn) {
+                        submitBtn.removeAttribute('disabled');
+                        submitBtn.textContent = 'Stripeで決済に進む';
+                    }
+                }
+            });
         }
     </script>
 </body>
