@@ -122,9 +122,9 @@
                             <p class="text-xs uppercase tracking-[0.3em] text-white/60">Price</p>
                             <p class="text-2xl font-bold">Free（無料）</p>
                         </div>
-                    <a href="https://lin.ee/fbhW5eQ" target="_blank" class="inline-flex items-center justify-center px-8 py-3 border border-white/30 rounded-full text-sm font-bold hover:bg-brand-flame hover:border-brand-flame hover:text-white transition">
+                        <button type="button" data-open-community class="inline-flex items-center justify-center px-8 py-3 border border-white/30 rounded-full text-sm font-bold hover:bg-brand-flame hover:border-brand-flame hover:text-white transition">
                             Join Community
-                        </a>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -308,6 +308,39 @@
         </div>
     </div>
 
+    <!-- Community Join Modal -->
+    <div id="community-modal" class="fixed inset-0 z-[70] hidden">
+        <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" data-close-community></div>
+        <div class="relative max-w-lg mx-auto mt-28 bg-brand-surface border border-brand-flame/30 rounded-2xl shadow-2xl text-left p-8 md:p-10 space-y-6 mx-4">
+            <div class="flex items-start justify-between gap-4">
+                <div>
+                    <p class="text-xs tracking-[0.3em] uppercase text-brand-flame font-bold">Free Community</p>
+                    <h3 class="text-2xl md:text-3xl font-bold text-white mt-2">参加前のご案内</h3>
+                    <p class="text-white/70 text-sm mt-3 leading-relaxed">LINEで最新のSafety & Literacy情報を受け取れます。PHIや診療情報は入力せず、友だち追加のみで参加できます。</p>
+                </div>
+                <button type="button" class="text-white/60 hover:text-white text-xl" aria-label="閉じる" data-close-community>&times;</button>
+            </div>
+
+            <div class="space-y-3 text-sm text-white/80 bg-black/20 rounded-xl p-4 border border-white/10">
+                <div class="flex items-start gap-2">
+                    <span class="w-2 h-2 rounded-full bg-brand-flame mt-1.5"></span>
+                    <p>カード情報やPHIは扱いません。友だち追加のみで参加できます。</p>
+                </div>
+                <div class="flex items-start gap-2">
+                    <span class="w-2 h-2 rounded-full bg-brand-flame mt-1.5"></span>
+                    <p>安全ガイド／最新AI副業トレンドをLINEで配信します。</p>
+                </div>
+            </div>
+
+            <div class="flex flex-col md:flex-row md:justify-end gap-3 pt-2">
+                <button type="button" data-close-community class="inline-flex justify-center px-5 py-3 rounded-full border border-white/20 text-white/80 hover:text-white hover:border-white/40 transition">閉じる</button>
+                <a href="https://lin.ee/fbhW5eQ" target="_blank" rel="noopener" class="inline-flex justify-center px-6 py-3 rounded-full bg-brand-flame text-white font-bold hover:bg-brand-flame/80 transition focus:outline-none focus:ring-2 focus:ring-brand-flame focus:ring-offset-2 focus:ring-offset-brand-bg">
+                    LINEで参加する
+                </a>
+            </div>
+        </div>
+    </div>
+
     <footer class="bg-[#020203] border-t border-white/10 py-16 text-xs text-white/60 relative z-10">
         <div class="max-w-7xl mx-auto px-6">
             <div class="flex flex-col md:flex-row justify-between items-start gap-16">
@@ -417,6 +450,11 @@
         const libraryStatus = document.getElementById('library-status');
         const submitBtn = libraryForm ? libraryForm.querySelector('button[type="submit"]') : null;
 
+        // Community modal
+        const communityModal = document.getElementById('community-modal');
+        const openCommunityButtons = document.querySelectorAll('[data-open-community]');
+        const closeCommunityTargets = communityModal ? communityModal.querySelectorAll('[data-close-community]') : [];
+
         const setStatus = (message, isError = true) => {
             if (!libraryStatus) return;
             libraryStatus.textContent = message;
@@ -440,6 +478,23 @@
         closeLibraryTargets.forEach(btn => btn.addEventListener('click', closeModal));
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') closeModal();
+        });
+
+        // Community modal handlers
+        const openCommunityModal = () => {
+            if (!communityModal) return;
+            communityModal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        };
+        const closeCommunityModal = () => {
+            if (!communityModal) return;
+            communityModal.classList.add('hidden');
+            document.body.style.overflow = '';
+        };
+        openCommunityButtons.forEach(btn => btn.addEventListener('click', openCommunityModal));
+        closeCommunityTargets.forEach(btn => btn.addEventListener('click', closeCommunityModal));
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeCommunityModal();
         });
 
         if (libraryForm) {
