@@ -130,6 +130,36 @@
             left: 100%;
         }
 
+        /* CTA Glow (graded by tier) */
+        .cta-glow {
+            position: relative;
+            isolation: isolate;
+            overflow: hidden;
+            border-radius: 9999px;
+        }
+        .cta-glow::before {
+            content: "";
+            position: absolute;
+            inset: -2px;
+            border-radius: 9999px;
+            background: conic-gradient(from 0deg, var(--glow-a), var(--glow-b), var(--glow-c), var(--glow-a));
+            animation: spin 6s linear infinite;
+            opacity: 0.9;
+            z-index: -1;
+        }
+        .cta-glow::after {
+            content: "";
+            position: absolute;
+            inset: 2px;
+            border-radius: 9999px;
+            background: var(--cta-bg, #FF4500);
+            z-index: -1;
+        }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
         /* Border Beam (Flame) */
         .border-beam {
             position: absolute;
@@ -140,6 +170,7 @@
             -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
             -webkit-mask-composite: xor;
             mask-composite: exclude;
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
         }
 
         .border-beam::before {
@@ -302,13 +333,20 @@
 
                 <!-- CTAs -->
                 <div class="mt-10 flex flex-wrap gap-3 md:gap-4 animate-fade-in-up" style="animation-delay: 0.4s;">
-                    <a href="#mission"
-                        class="btn-lickable group relative inline-flex items-center justify-center px-5 py-2.5 md:px-8 md:py-3.5 bg-brand-flame/10 text-white font-bold text-[10px] md:text-sm tracking-widest rounded-full overflow-hidden font-en uppercase">
-                        <div class="border-beam absolute inset-0 rounded-full"></div>
-                        <span class="relative z-10 flex items-center gap-1 md:gap-2">
-                            Explore Mission <i
-                                class="fa-solid fa-arrow-down group-hover:translate-y-0.5 transition-transform"></i>
-                        </span>
+                    <a href="services.html#phase01"
+                        class="cta-glow inline-flex items-center justify-center px-5 py-2.5 md:px-8 md:py-3.5 font-bold text-[10px] md:text-sm tracking-widest rounded-full font-en uppercase"
+                        style="--cta-bg:#0F0505;--glow-a:#3A3A3A;--glow-b:#6A6A6A;--glow-c:#3A3A3A;">
+                        Free Community
+                    </a>
+                    <a href="services.html#phase02"
+                        class="cta-glow inline-flex items-center justify-center px-5 py-2.5 md:px-8 md:py-3.5 font-bold text-[10px] md:text-sm tracking-widest rounded-full font-en uppercase"
+                        style="--cta-bg:#FF4500;--glow-a:#FF4500;--glow-b:#FF7A3C;--glow-c:#FF5A1F;">
+                        Join Library
+                    </a>
+                    <a href="services.html#phase03"
+                        class="cta-glow inline-flex items-center justify-center px-5 py-2.5 md:px-8 md:py-3.5 font-bold text-[10px] md:text-sm tracking-widest rounded-full font-en uppercase text-black"
+                        style="--cta-bg:#F1C156;--glow-a:#F6E27A;--glow-b:#F1C156;--glow-c:#E0A13B;">
+                        Join Waitlist
                     </a>
                 </div>
 
