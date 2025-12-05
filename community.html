@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cursorvers Edu | Free Community Join</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'brand-bg': '#050202',
+            'brand-surface': '#0F0505',
+            'brand-flame': '#FF4500',
+            'brand-gold': '#FFD700',
+          },
+          fontFamily: {
+            sans: ['"Noto Sans JP"', 'system-ui', 'sans-serif'],
+          },
+        },
+      },
+    };
+  </script>
+  <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+</head>
+<body class="bg-brand-bg text-white min-h-screen">
+  <main class="max-w-xl mx-auto px-6 py-10 space-y-6">
+    <div class="space-y-2">
+      <p class="text-xs uppercase tracking-[0.4em] text-brand-flame font-bold">Free Community</p>
+      <h1 class="text-3xl font-bold">参加フォーム</h1>
+      <p class="text-sm text-white/80">LINEで友だち追加し、最新のSafety &amp; Literacyアップデートを受け取ります。メールは任意ですが、入力すると重要なお知らせをメールでも受け取れます。</p>
+      <p class="text-xs text-red-300">PHI（診療情報）は絶対に入力しないでください。</p>
+    </div>
+
+    <div id="status" class="text-sm"></div>
+
+    <form id="community-form" class="space-y-4 bg-brand-surface border border-white/10 rounded-2xl p-6 shadow-lg">
+      <div class="space-y-2">
+        <label for="email" class="text-sm font-semibold">メールアドレス（任意）</label>
+        <input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com" class="w-full rounded-lg border border-white/15 bg-black/30 px-4 py-3 text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-brand-flame focus:border-brand-flame">
+        <p class="text-xs text-white/50">未入力でも参加できます。</p>
+      </div>
+
+      <label class="flex items-start gap-3 text-sm text-white/80">
+        <input id="opt-in" type="checkbox" class="mt-1 rounded border-white/25 bg-black/30 text-brand-flame focus:ring-brand-flame" checked>
+        <span>ニュースレター／アップデートをメールで受け取る（任意、初期ON）</span>
+      </label>
+
+      <label class="flex items-start gap-3 text-sm text-white/80">
+        <input id="agree" type="checkbox" class="mt-1 rounded border-white/25 bg-black/30 text-brand-flame focus:ring-brand-flame" required>
+        <span><a href="terms.html" class="underline hover:text-brand-flame" target="_blank" rel="noopener">利用規約</a>・<a href="privacy.html" class="underline hover:text-brand-flame" target="_blank" rel="noopener">プライバシーポリシー</a>・PHI禁止に同意する</span>
+      </label>
+
+      <button id="submit-btn" type="submit" class="w-full rounded-full bg-brand-flame text-white font-bold py-3 hover:bg-brand-flame/80 transition focus:outline-none focus:ring-2 focus:ring-brand-flame focus:ring-offset-2 focus:ring-offset-brand-bg">
+        送信して参加する
+      </button>
+
+      <p id="line-user" class="text-xs text-white/40"></p>
+    </form>
+  </main>
+
+  <script>
+    const LIFF_FALLBACK_ID = ""; // 任意: ビルド時に設定。未設定ならクエリ ?liffId=... で渡す
+    const API_ENDPOINT = "https://haaxgwyimoqzzxzdaeep.functions.supabase.co/line-register";
+    const statusEl = document.getElementById("status");
+    const userEl = document.getElementById("line-user");
+    const form = document.getElementById("community-form");
+    const submitBtn = document.getElementById("submit-btn");
+
+    let lineUserId = "";
+
+    const setStatus = (msg, isError = true) => {
+      statusEl.textContent = msg;
+      statusEl.className = isError ? "text-sm text-red-400" : "text-sm text-brand-flame";
+    };
+
+    async function initLiff() {
+      const qsId = new URLSearchParams(location.search).get("liffId");
+      const liffId = qsId || LIFF_FALLBACK_ID;
+      if (!liffId) {
+        setStatus("LIFF ID が設定されていません。?liffId=XXXX で指定するか、LIFF_FALLBACK_ID を設定してください。");
+        return;
+      }
+      try {
+        await liff.init({ liffId });
+        if (!liff.isLoggedIn()) {
+          liff.login();
+          return;
+        }
+        const profile = await liff.getProfile();
+        lineUserId = profile.userId;
+        userEl.textContent = `LINE ID: ${lineUserId}`;
+        setStatus("LINEログイン済みです。メールは任意入力で送信できます。", false);
+      } catch (err) {
+        console.error(err);
+        setStatus("LIFF初期化に失敗しました。再度開き直してください。");
+      }
+    }
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      if (!lineUserId) {
+        setStatus("LINEユーザーIDを取得できませんでした。リロードしてください。");
+        return;
+      }
+      const email = (document.getElementById("email").value || "").trim();
+      const optIn = document.getElementById("opt-in").checked;
+      const agree = document.getElementById("agree").checked;
+      if (!agree) {
+        setStatus("利用規約・プライバシーポリシーへの同意が必要です。");
+        return;
+      }
+      submitBtn.disabled = true;
+      submitBtn.textContent = "送信中...";
+      setStatus("");
+      try {
+        const res = await fetch(API_ENDPOINT, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            line_user_id: lineUserId,
+            email: email || null,
+            opt_in_email: optIn,
+          }),
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok) {
+          throw new Error(data.error || "送信に失敗しました");
+        }
+        setStatus("登録しました。LINEで配信をお待ちください。", false);
+      } catch (err) {
+        console.error(err);
+        setStatus(err.message || "送信に失敗しました");
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = "送信して参加する";
+      }
+    });
+
+    initLiff();
+  </script>
+</body>
+</html>
+
