@@ -5,6 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>利用規約 | Cursorvers.edu</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'brand-flame': '#FF5A1F',
+            'brand-gold': '#FF7A3C',
+          },
+          fontFamily: {
+            sans: ['"Noto Sans JP"', 'system-ui', 'sans-serif'],
+          },
+        },
+      },
+    };
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
@@ -12,21 +27,21 @@
     body { font-family: "Noto Sans JP", system-ui, sans-serif; }
   </style>
 </head>
-<body class="bg-black text-white">
+<body class="bg-[#050202] text-[#F8F8F8]">
   <main class="max-w-5xl mx-auto px-6 py-16 space-y-10">
     <header class="space-y-3">
-      <p class="text-xs uppercase tracking-[0.4em] text-orange-400 font-bold">Cursorvers.edu</p>
-      <h1 class="text-3xl md:text-4xl font-bold">利用規約</h1>
-      <p class="text-sm text-white/70">本サービスをご利用いただく前に、本規約を必ずご確認ください。</p>
+      <p class="text-xs uppercase tracking-[0.4em] text-brand-flame font-bold">Cursorvers.edu</p>
+      <h1 class="text-3xl md:text-4xl font-bold text-brand-gold">利用規約</h1>
+      <p class="text-sm text-white/80">本サービスをご利用いただく前に、本規約を必ずご確認ください。</p>
     </header>
 
-    <section class="space-y-4 text-sm leading-relaxed text-white/85">
-      <h2 class="text-xl font-bold text-white">1. 適用</h2>
+    <section class="space-y-4 text-sm leading-relaxed text-white/90">
+      <h2 class="text-xl font-bold text-brand-flame">1. 適用</h2>
       <p>本規約は、Cursorvers.edu が提供するオンラインコンテンツ、コミュニティ、関連サービス（以下「本サービス」）の利用に関し、ユーザーに適用されます。</p>
     </section>
 
-    <section class="space-y-4 text-sm leading-relaxed text-white/85">
-      <h2 class="text-xl font-bold text-white">2. 禁止事項</h2>
+    <section class="space-y-4 text-sm leading-relaxed text-white/90">
+      <h2 class="text-xl font-bold text-brand-flame">2. 禁止事項</h2>
       <ul class="list-disc pl-5 space-y-2">
         <li>法令・公序良俗に反する行為</li>
         <li>PHI（保護対象医療情報）や診療情報の送信・共有</li>
@@ -35,32 +50,32 @@
       </ul>
     </section>
 
-    <section class="space-y-4 text-sm leading-relaxed text-white/85">
-      <h2 class="text-xl font-bold text-white">3. 免責</h2>
+    <section class="space-y-4 text-sm leading-relaxed text-white/90">
+      <h2 class="text-xl font-bold text-brand-flame">3. 免責</h2>
       <ul class="list-disc pl-5 space-y-2">
         <li>本サービスは教育・情報提供目的であり、医療判断・診療行為を行うものではありません。</li>
         <li>利用により生じたいかなる損害についても、当社は責任を負いません。</li>
       </ul>
     </section>
 
-    <section class="space-y-4 text-sm leading-relaxed text-white/85">
-      <h2 class="text-xl font-bold text-white">4. 知的財産権</h2>
+    <section class="space-y-4 text-sm leading-relaxed text-white/90">
+      <h2 class="text-xl font-bold text-brand-flame">4. 知的財産権</h2>
       <p>本サービスで提供するコンテンツの著作権・その他知的財産権は当社または正当な権利者に帰属します。無断複製・転載を禁じます。</p>
     </section>
 
-    <section class="space-y-4 text-sm leading-relaxed text-white/85">
-      <h2 class="text-xl font-bold text-white">5. 利用停止・解除</h2>
+    <section class="space-y-4 text-sm leading-relaxed text-white/90">
+      <h2 class="text-xl font-bold text-brand-flame">5. 利用停止・解除</h2>
       <p>ユーザーが本規約に違反した場合、当社は事前通知なく利用停止または契約解除を行うことがあります。</p>
     </section>
 
-    <section class="space-y-4 text-sm leading-relaxed text-white/85">
-      <h2 class="text-xl font-bold text-white">6. 規約の変更</h2>
+    <section class="space-y-4 text-sm leading-relaxed text-white/90">
+      <h2 class="text-xl font-bold text-brand-flame">6. 規約の変更</h2>
       <p>必要に応じて本規約を変更することがあり、最新の規約は本ページに掲示します。変更後の利用をもって同意されたものとみなします。</p>
     </section>
 
-    <section class="space-y-2 text-sm leading-relaxed text-white/85">
-      <h2 class="text-xl font-bold text-white">7. お問い合わせ</h2>
-      <p>本規約に関するお問い合わせは、<a href="https://script.google.com/macros/s/AKfycbwDP0d67qtifyms2h67LawjNWJi_Lh44faPC7Z4axfS_Gdmjzcd50rcl_kmTYBTysKirQ/exec" class="text-orange-400 underline" target="_blank" rel="noopener">お問い合わせフォーム</a> よりご連絡ください。</p>
+    <section class="space-y-2 text-sm leading-relaxed text-white/90">
+      <h2 class="text-xl font-bold text-brand-flame">7. お問い合わせ</h2>
+      <p>本規約に関するお問い合わせは、<a href="https://script.google.com/macros/s/AKfycbwDP0d67qtifyms2h67LawjNWJi_Lh44faPC7Z4axfS_Gdmjzcd50rcl_kmTYBTysKirQ/exec" class="text-brand-gold underline" target="_blank" rel="noopener">お問い合わせフォーム</a> よりご連絡ください。</p>
     </section>
   </main>
 </body>
