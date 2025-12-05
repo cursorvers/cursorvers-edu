@@ -56,6 +56,36 @@
         /* Library Card Highlight */
         .library-highlight { border-color: rgba(255, 69, 0, 0.35); box-shadow: 0 0 30px rgba(255, 69, 0, 0.08); }
         .library-highlight:hover { border-color: rgba(255, 69, 0, 0.6); box-shadow: 0 0 40px rgba(255, 69, 0, 0.15); }
+
+        /* CTA Glow */
+        .cta-glow {
+            position: relative;
+            isolation: isolate;
+            overflow: hidden;
+            border-radius: 9999px;
+        }
+        .cta-glow::before {
+            content: "";
+            position: absolute;
+            inset: -2px;
+            border-radius: 9999px;
+            background: conic-gradient(from 0deg, #FF4500, #FFD700, #FF7A3C, #FF4500);
+            animation: spin 6s linear infinite;
+            opacity: 0.9;
+            z-index: -1;
+        }
+        .cta-glow::after {
+            content: "";
+            position: absolute;
+            inset: 2px;
+            border-radius: 9999px;
+            background: var(--cta-bg, #FF4500);
+            z-index: -1;
+        }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -123,8 +153,8 @@
                             <p class="text-2xl font-bold">Free（無料）</p>
                         </div>
                         <div class="space-y-1">
-                            <a href="community.html" class="inline-flex items-center justify-center px-8 py-3 border border-white/30 rounded-full text-sm font-bold hover:bg-brand-flame hover:border-brand-flame hover:text-white transition">
-                            Join Community
+                            <a href="community.html" class="cta-glow inline-flex items-center justify-center px-8 py-3 text-sm font-bold text-white transition" style="--cta-bg:#0F0505;">
+                                Join Community
                             </a>
                             <p class="text-xs text-white/60">メール登録で「Safetyスタートパック」を配布（任意登録推奨）</p>
                         </div>
@@ -171,7 +201,7 @@
                             <p class="text-2xl font-bold text-white">¥2,980 <span class="text-sm font-normal text-white/60">/ Month（税込）</span></p>
                         </div>
                         
-                        <button type="button" data-open-library class="inline-flex items-center justify-center px-8 py-3 rounded-full bg-brand-flame text-white text-sm font-bold hover:bg-brand-flame/80 hover:text-white transition shadow-lg shadow-brand-flame/20 focus:outline-none focus:ring-2 focus:ring-brand-flame focus:ring-offset-2 focus:ring-offset-brand-bg">
+                        <button type="button" data-open-library class="cta-glow inline-flex items-center justify-center px-8 py-3 rounded-full text-sm font-bold text-white transition shadow-lg shadow-brand-flame/20 focus:outline-none focus:ring-2 focus:ring-brand-flame focus:ring-offset-2 focus:ring-offset-brand-bg" style="--cta-bg:#FF4500;">
                             Join Library
                         </button>
                     </div>
@@ -218,7 +248,8 @@
                             <a
                                 href="https://script.google.com/macros/s/AKfycbwDP0d67qtifyms2h67LawjNWJi_Lh44faPC7Z4axfS_Gdmjzcd50rcl_kmTYBTysKirQ/exec"
                                 target="_blank"
-                                class="inline-flex items-center justify-center px-9 py-3 rounded-full text-sm font-bold text-black bg-gradient-to-r from-[#F6E27A] via-[#F1C156] to-[#E0A13B] shadow-[0_0_25px_rgba(241,193,86,0.45)] hover:from-[#F7EDB5] hover:via-[#F2C867] hover:to-[#E4AE51] transition"
+                                class="cta-glow inline-flex items-center justify-center px-9 py-3 rounded-full text-sm font-bold text-black transition"
+                                style="--cta-bg:#F1C156;"
                             >
                                 Join Waitlist
                             </a>
