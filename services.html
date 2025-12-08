@@ -532,7 +532,7 @@
                     return;
                 }
                 if (!agreeTerms) {
-                    setStatus('利用規約・プライバシーポリシー・PHI禁止への同意が必要です');
+                    setStatus('利用規約への同意が必要です');
                     return;
                 }
 
@@ -549,7 +549,6 @@
                             email,
                             opt_in_email: optInEmail,
                             agree_terms: agreeTerms,
-                            agree_privacy: agreeTerms,
                             tier: 'library',
                         }),
                     });
