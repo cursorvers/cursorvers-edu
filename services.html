@@ -522,19 +522,17 @@
                 const emailInput = libraryForm.querySelector('#library-email');
                 const optInInput = libraryForm.querySelector('#opt-in-email');
                 const agreeTermsInput = libraryForm.querySelector('#agree-terms');
-                const agreePrivacyInput = libraryForm.querySelector('#agree-privacy');
 
                 const email = emailInput instanceof HTMLInputElement ? emailInput.value.trim() : '';
                 const optInEmail = optInInput instanceof HTMLInputElement ? optInInput.checked : false;
                 const agreeTerms = agreeTermsInput instanceof HTMLInputElement ? agreeTermsInput.checked : false;
-                const agreePrivacy = agreePrivacyInput instanceof HTMLInputElement ? agreePrivacyInput.checked : false;
 
                 if (!email) {
                     setStatus('メールアドレスを入力してください');
                     return;
                 }
-                if (!agreeTerms || !agreePrivacy) {
-                    setStatus('利用規約とプライバシーポリシーへの同意が必要です');
+                if (!agreeTerms) {
+                    setStatus('利用規約・プライバシーポリシー・PHI禁止への同意が必要です');
                     return;
                 }
 
@@ -551,7 +549,7 @@
                             email,
                             opt_in_email: optInEmail,
                             agree_terms: agreeTerms,
-                            agree_privacy: agreePrivacy,
+                            agree_privacy: agreeTerms,
                             tier: 'library',
                         }),
                     });
