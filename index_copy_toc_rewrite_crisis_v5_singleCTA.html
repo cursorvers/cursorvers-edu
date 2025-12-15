@@ -140,7 +140,6 @@
             border: 1px solid rgba(255, 255, 255, 0.12);
             box-shadow: 0 0 22px rgba(255, 69, 0, 0.25);
         }
-
         .cta-glow::before {
             content: "";
             position: absolute;
@@ -151,7 +150,6 @@
             opacity: 0.9;
             z-index: -1;
         }
-
         .cta-glow::after {
             content: "";
             position: absolute;
@@ -160,15 +158,9 @@
             background: var(--cta-bg, #FF4500);
             z-index: -1;
         }
-
         @keyframes spin {
-            from {
-                transform: rotate(0deg);
-            }
-
-            to {
-                transform: rotate(360deg);
-            }
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
 
         /* Border Beam (Flame) */
@@ -319,7 +311,7 @@
         <div id="webgl-container"></div>
 
         <div class="hero-content max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center h-full">
-            <div class="text-left z-10 pt-20 w-full mx-auto md:col-span-2 md:max-w-5xl">
+            <div class="text-left z-10 pt-20 md:col-span-2 md:max-w-5xl md:mx-auto">
                 <!-- Eyebrow -->
                 <div class="animate-fade-in-up" style="animation-delay: 0.1s;">
                     <span
@@ -349,7 +341,7 @@
                         style="--cta-bg:#FF4500;--glow-a:#FF4500;--glow-b:#FF7A3C;--glow-c:#FF5A1F;">
                         Start Free
                     </a>
-                </div>
+</div>
 
                 <!-- Social Proof -->
                 <div class="mt-16 pt-8 border-t border-white/5 animate-fade-in-up" style="animation-delay: 0.5s;">
@@ -361,20 +353,7 @@
                             <span class="text-xl font-bold font-en text-white">Univ. Hospital A</span>
                             <span class="text-xl font-bold font-en text-white">Medical Center B</span>
                             <span class="text-xl font-bold font-en text-white">Research Inst C</span>
-                            <span class="text-xl font-bold font-en text-white">General Hospital D</span>
-                            <span class="text-xl font-bold font-en text-white">Clinic E</span>
-                            <span class="text-xl font-bold font-en text-white">Univ. Hospital A</span>
-                            <span class="text-xl font-bold font-en text-white">Medical Center B</span>
-                            <span class="text-xl font-bold font-en text-white">Research Inst C</span>
-                            <span class="text-xl font-bold font-en text-white">General Hospital D</span>
-                            <span class="text-xl font-bold font-en text-white">Clinic E</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
+                            <span class="text-xl
     <!-- Reality Section -->
     <section id="reality" class="section-padding bg-brand-bg relative z-10">
         <div class="max-w-7xl mx-auto px-6">
@@ -382,7 +361,7 @@
                 <span class="text-brand-flame text-xs font-bold tracking-widest uppercase block mb-6 font-en">Reality
                     Check</span>
                 <h2 class="text-4xl md:text-6xl font-bold mb-10 leading-tight text-white">
-                    <span class="block">医療者の資産形成は</span><span class="block">異構造的に厳しくなる</span>
+                    医療者の資産形成は、<br class="hidden md:block">構造的に厳しくなる
                 </h2>
                 <p class="text-white/80 text-lg leading-relaxed">
                     いま起きているのは、個人の努力不足ではありません。<br>
@@ -392,8 +371,7 @@
 
             <div class="mt-16 grid md:grid-cols-3 gap-8">
                 <div class="content-card rounded-2xl p-8 reveal">
-                    <p class="text-xs text-brand-flame tracking-widest uppercase mb-3 font-en">
-                        01. Cost Pressure</p>
+                    <p class="text-xs text-brand-flame tracking-widest uppercase mb-3 font-en">01. Cost Pressure</p>
                     <h3 class="text-2xl font-bold text-white mb-4">医療費抑制 × 実質賃金</h3>
                     <p class="text-white/80 text-sm leading-relaxed">
                         医療費の適正化は今後も続きます。現場の負荷が上がっても、<span class="text-white">「報酬が比例して伸びる」期待は置きにくい</span>。
@@ -402,20 +380,17 @@
                 </div>
 
                 <div class="content-card rounded-2xl p-8 reveal" style="transition-delay: 0.1s;">
-                    <p class="text-xs text-brand-flame tracking-widest uppercase mb-3 font-en">
-                        02. Time Cap</p>
+                    <p class="text-xs text-brand-flame tracking-widest uppercase mb-3 font-en">02. Time Cap</p>
                     <h3 class="text-2xl font-bold text-white mb-4">時間外上限 × 外勤の合算</h3>
                     <p class="text-white/80 text-sm leading-relaxed">
-                        2024年4月から医師の時間外労働に上限が設けられ、<span class="text-white">原則
-                            年960時間</span>が基準となりました。<br>
+                        2024年4月から医師の時間外労働に上限が設けられ、<span class="text-white">原則 年960時間</span>が基準となりました。<br>
                         複数医療機関での勤務も合算されるため、これまで月20〜30万円規模で積み上げていた外勤が、
                         <span class="text-white">制度上・体力上の理由で難しくなる</span>ケースが現実に出ています。
                     </p>
                 </div>
 
                 <div class="content-card rounded-2xl p-8 reveal" style="transition-delay: 0.2s;">
-                    <p class="text-xs text-brand-flame tracking-widest uppercase mb-3 font-en">
-                        03. Inflation</p>
+                    <p class="text-xs text-brand-flame tracking-widest uppercase mb-3 font-en">03. Inflation</p>
                     <h3 class="text-2xl font-bold text-white mb-4">インフレ × 住宅・教育コスト</h3>
                     <p class="text-white/80 text-sm leading-relaxed">
                         生活コストは、ゆっくり確実に上がっていきます。住宅（家賃・ローン・修繕）、教育（学費・塾・留学）、
@@ -426,30 +401,18 @@
             </div>
 
             <div class="mt-12 content-card rounded-2xl p-8 md:p-10 reveal">
-                <p class="text-xs text-brand-flame tracking-widest uppercase mb-3 font-en">The
-                    Hidden Trap</p>
-                <h3 class="text-2xl md:text-3xl font-bold text-white mb-4">
-                    最も危険なのは、「時間で稼ぐ」依存が残ること</h3>
+                <p class="text-xs text-brand-flame tracking-widest uppercase mb-3 font-en">The Hidden Trap</p>
+                <h3 class="text-2xl md:text-3xl font-bold text-white mb-4">最も危険なのは、「時間で稼ぐ」依存が残ること</h3>
                 <div class="grid md:grid-cols-2 gap-8 text-white/80 text-sm leading-relaxed">
                     <div class="space-y-3">
-                        <p class="flex gap-2"><i class="fa-solid fa-xmark text-brand-flame mt-1"></i>当直・外勤は、年齢とともに持続しない。
-                        </p>
-                        <p class="flex gap-2"><i
-                                class="fa-solid fa-xmark text-brand-flame mt-1"></i>時間外の枠がある以上、「もっと働く」で補填できない。
-                        </p>
-                        <p class="flex gap-2"><i
-                                class="fa-solid fa-xmark text-brand-flame mt-1"></i>管理職ポストは増えず、椅子取りゲームが激化する。
-                        </p>
+                        <p class="flex gap-2"><i class="fa-solid fa-xmark text-brand-flame mt-1"></i>当直・外勤は、年齢とともに持続しない。</p>
+                        <p class="flex gap-2"><i class="fa-solid fa-xmark text-brand-flame mt-1"></i>時間外の枠がある以上、「もっと働く」で補填できない。</p>
+                        <p class="flex gap-2"><i class="fa-solid fa-xmark text-brand-flame mt-1"></i>管理職ポストは増えず、椅子取りゲームが激化する。</p>
                     </div>
                     <div class="space-y-3">
-                        <p class="flex gap-2"><i
-                                class="fa-solid fa-check text-brand-flame mt-1"></i>必要なのは、臨床知を「再利用可能」にしてスケールさせること。
-                        </p>
-                        <p class="flex gap-2"><i class="fa-solid fa-check text-brand-flame mt-1"></i>AIを“学ぶ”より先に、<span
-                                class="text-white">勝ち筋（稼ぎ方の構造）</span>を設計すること。</p>
-                        <p class="flex gap-2"><i
-                                class="fa-solid fa-check text-brand-flame mt-1"></i>安全な線引きの上で、収益ラインを複線化すること。
-                        </p>
+                        <p class="flex gap-2"><i class="fa-solid fa-check text-brand-flame mt-1"></i>必要なのは、臨床知を「再利用可能」にしてスケールさせること。</p>
+                        <p class="flex gap-2"><i class="fa-solid fa-check text-brand-flame mt-1"></i>AIを“学ぶ”より先に、<span class="text-white">勝ち筋（稼ぎ方の構造）</span>を設計すること。</p>
+                        <p class="flex gap-2"><i class="fa-solid fa-check text-brand-flame mt-1"></i>安全な線引きの上で、収益ラインを複線化すること。</p>
                     </div>
                 </div>
 
@@ -460,7 +423,23 @@
         </div>
     </section>
 
+ font-bold font-en text-white">General Clinic D</span>
+                            <span class="text-xl font-bold font-en text-white">Pharmacy E</span>
+                            <!-- Duplicate -->
+                            <span class="text-xl font-bold font-en text-white">Univ. Hospital A</span>
+                            <span class="text-xl font-bold font-en text-white">Medical Center B</span>
+                            <span class="text-xl font-bold font-en text-white">Research Inst C</span>
+                            <span class="text-xl font-bold font-en text-white">General Clinic D</span>
+                            <span class="text-xl font-bold font-en text-white">Pharmacy E</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
+            <!-- Right side reserved for 3D visual focus -->
+            <div class="hidden md:block"></div>
+        </div>
+    </div>
 
     <!-- Mission Section -->
     <section id="mission" class="section-padding bg-brand-bg relative z-10">
@@ -485,7 +464,8 @@
                     <span class="text-brand-flame text-xs font-bold tracking-widest uppercase block mb-6 font-en">Our
                         Philosophy</span>
                     <h2 class="text-4xl md:text-6xl font-bold mb-10 leading-tight text-white">
-                        <span class="block">知的資産の防衛が</span><span class="block">最大のキャリア戦略である</span>
+                        知的資産の防衛が<br>
+                        最大のキャリア戦略である
                     </h2>
                     <div class="space-y-8 text-white/80 text-lg leading-relaxed">
                         <p>
@@ -513,7 +493,7 @@
                     <span class="text-brand-flame text-xs font-bold tracking-widest uppercase block mb-6 font-en">02.
                         Vision & Mission</span>
                     <h2 class="text-4xl md:text-5xl font-bold mb-10 leading-tight text-white">
-                        <span class="block">AIと共進化する</span><span class="block">自立した医療者たちへ</span>
+                        AIと共進化する、<br>自律した医療者たちへ。
                     </h2>
                     <div class="space-y-8 text-white/80 text-lg leading-relaxed">
                         <p>
@@ -564,7 +544,7 @@
                     <span class="text-brand-flame text-xs font-bold tracking-widest uppercase block mb-6 font-en">03.
                         Your Transformation</span>
                     <h2 class="text-4xl md:text-5xl font-bold mb-10 leading-tight text-white">
-                        <span class="block">受講後に手に入れる</span><span class="block">３つの核心的能力</span>
+                        受講後に手に入れる、<br>3つの核心的能力
                     </h2>
                     <ul class="space-y-8 text-lg leading-relaxed">
                         <li class="flex gap-4">
@@ -587,8 +567,8 @@
                             <i class="fa-solid fa-coins text-brand-flame text-xl shrink-0 mt-1"></i>
                             <div>
                                 <strong class="block text-white mb-1">収益ラインの複線化</strong>
-                                <span class="text-white/70">臨床知をデジタル資産化し、<span
-                                        class="text-white">コンテンツ（ストック）／研修（スポット）／監修・アドバイザリー（継続）</span>を組み合わせて、時間に依存しない収益基盤を設計します。</span>
+                                <span
+                                    class="text-white/70">臨床知をデジタル資産化し、<span class="text-white">コンテンツ（ストック）／研修（スポット）／監修・アドバイザリー（継続）</span>を組み合わせて、時間に依存しない収益基盤を設計します。</span>
                             </div>
                         </li>
                     </ul>
@@ -597,7 +577,7 @@
         </div>
     </section>
 
-
+    
     <!-- Blueprint Section -->
     <section id="blueprint" class="section-padding bg-brand-surface relative z-10">
         <div class="max-w-7xl mx-auto px-6">
@@ -606,7 +586,8 @@
                     <span class="text-brand-flame text-xs font-bold tracking-widest uppercase block mb-6 font-en">04.
                         Blueprint</span>
                     <h2 class="text-4xl md:text-5xl font-bold mb-10 leading-tight text-white">
-                        <span class="block">「収益は」価値提供の証明である</span><span class="block">医療者の臨床知を正しく運用する</span>
+                        収益は、価値提供の証明である。<br>
+                        医療者の臨床知を、正しく運用する。
                     </h2>
                     <div class="space-y-6 text-white/80 text-lg leading-relaxed">
                         <p>
@@ -622,14 +603,10 @@
                         <div class="content-card rounded-2xl p-6 border border-brand-flame/20">
                             <p class="text-xs text-brand-flame tracking-widest uppercase mb-2 font-en">How We Build</p>
                             <ol class="space-y-3 text-sm leading-relaxed text-white/80">
-                                <li class="flex gap-3"><span
-                                        class="text-brand-flame font-bold">1.</span>臨床知の棚卸し（強み・症例・暗黙知を言語化）</li>
-                                <li class="flex gap-3"><span
-                                        class="text-brand-flame font-bold">2.</span>勝ち筋の選定（誰の何を、どの形で解決するか）</li>
-                                <li class="flex gap-3"><span
-                                        class="text-brand-flame font-bold">3.</span>AIワークフロー実装（作る／届ける／改善する）</li>
-                                <li class="flex gap-3"><span
-                                        class="text-brand-flame font-bold">4.</span>守備の設計（免責・個人情報・品質管理）</li>
+                                <li class="flex gap-3"><span class="text-brand-flame font-bold">1.</span>臨床知の棚卸し（強み・症例・暗黙知を言語化）</li>
+                                <li class="flex gap-3"><span class="text-brand-flame font-bold">2.</span>勝ち筋の選定（誰の何を、どの形で解決するか）</li>
+                                <li class="flex gap-3"><span class="text-brand-flame font-bold">3.</span>AIワークフロー実装（作る／届ける／改善する）</li>
+                                <li class="flex gap-3"><span class="text-brand-flame font-bold">4.</span>守備の設計（免責・個人情報・品質管理）</li>
                             </ol>
                         </div>
                     </div>
@@ -643,12 +620,9 @@
                             文章・資料・教材をAIで高速に作り、販売と配布の導線を整える。忙しい医療者に最も相性が良い「ストック型」。
                         </p>
                         <ul class="text-white/75 text-sm space-y-2 leading-relaxed">
-                            <li class="flex gap-2"><i
-                                    class="fa-solid fa-check text-brand-flame mt-1"></i>note連載／Notionテンプレ／動画講義</li>
-                            <li class="flex gap-2"><i
-                                    class="fa-solid fa-check text-brand-flame mt-1"></i>症例の学びを「再現可能な型」に変換</li>
-                            <li class="flex gap-2"><i
-                                    class="fa-solid fa-check text-brand-flame mt-1"></i>小さく売って、改善して、積み上げる</li>
+                            <li class="flex gap-2"><i class="fa-solid fa-check text-brand-flame mt-1"></i>note連載／Notionテンプレ／動画講義</li>
+                            <li class="flex gap-2"><i class="fa-solid fa-check text-brand-flame mt-1"></i>症例の学びを「再現可能な型」に変換</li>
+                            <li class="flex gap-2"><i class="fa-solid fa-check text-brand-flame mt-1"></i>小さく売って、改善して、積み上げる</li>
                         </ul>
                     </div>
 
@@ -659,29 +633,22 @@
                             AIを使いこなす医療者は、院内外で求められます。テーマ設計と資料作成をAIで標準化し、単発の収益へ。
                         </p>
                         <ul class="text-white/75 text-sm space-y-2 leading-relaxed">
-                            <li class="flex gap-2"><i
-                                    class="fa-solid fa-check text-brand-flame mt-1"></i>院内勉強会／看護部研修／企業向けセミナー</li>
-                            <li class="flex gap-2"><i
-                                    class="fa-solid fa-check text-brand-flame mt-1"></i>資料・台本・Q&Aをテンプレ化</li>
-                            <li class="flex gap-2"><i class="fa-solid fa-check text-brand-flame mt-1"></i>目安：1回
-                                5〜10万円規模から</li>
+                            <li class="flex gap-2"><i class="fa-solid fa-check text-brand-flame mt-1"></i>院内勉強会／看護部研修／企業向けセミナー</li>
+                            <li class="flex gap-2"><i class="fa-solid fa-check text-brand-flame mt-1"></i>資料・台本・Q&Aをテンプレ化</li>
+                            <li class="flex gap-2"><i class="fa-solid fa-check text-brand-flame mt-1"></i>目安：1回 5〜10万円規模から</li>
                         </ul>
                     </div>
 
                     <div class="content-card rounded-2xl p-7">
-                        <p class="text-xs text-brand-flame tracking-widest uppercase mb-2 font-en">Route C / Retainer
-                        </p>
+                        <p class="text-xs text-brand-flame tracking-widest uppercase mb-2 font-en">Route C / Retainer</p>
                         <h3 class="text-2xl font-bold text-white mb-3">監修・アドバイザリー（継続収入の核）</h3>
                         <p class="text-white/80 text-sm leading-relaxed mb-4">
                             医療×AIの現場知がある人材は希少です。線引きと責任範囲を明確にし、継続契約へ。
                         </p>
                         <ul class="text-white/75 text-sm space-y-2 leading-relaxed">
-                            <li class="flex gap-2"><i
-                                    class="fa-solid fa-check text-brand-flame mt-1"></i>医療監修／運用ルール整備／FAQレビュー</li>
-                            <li class="flex gap-2"><i
-                                    class="fa-solid fa-check text-brand-flame mt-1"></i>契約書・免責の雛形で防御を固める</li>
-                            <li class="flex gap-2"><i class="fa-solid fa-check text-brand-flame mt-1"></i>目安：月
-                                3〜10万円（小規模から開始）</li>
+                            <li class="flex gap-2"><i class="fa-solid fa-check text-brand-flame mt-1"></i>医療監修／運用ルール整備／FAQレビュー</li>
+                            <li class="flex gap-2"><i class="fa-solid fa-check text-brand-flame mt-1"></i>契約書・免責の雛形で防御を固める</li>
+                            <li class="flex gap-2"><i class="fa-solid fa-check text-brand-flame mt-1"></i>目安：月 3〜10万円（小規模から開始）</li>
                         </ul>
                     </div>
 
@@ -692,12 +659,9 @@
                             「作業を速くする」だけではなく、チームの成果物を安定させる。テンプレ・運用・教育を一体で設計します。
                         </p>
                         <ul class="text-white/75 text-sm space-y-2 leading-relaxed">
-                            <li class="flex gap-2"><i
-                                    class="fa-solid fa-check text-brand-flame mt-1"></i>論文・学会・広報の制作フロー整備</li>
-                            <li class="flex gap-2"><i
-                                    class="fa-solid fa-check text-brand-flame mt-1"></i>プロンプト運用・レビュー体制の設計</li>
-                            <li class="flex gap-2"><i
-                                    class="fa-solid fa-check text-brand-flame mt-1"></i>成果物ベースで単価が上がる領域</li>
+                            <li class="flex gap-2"><i class="fa-solid fa-check text-brand-flame mt-1"></i>論文・学会・広報の制作フロー整備</li>
+                            <li class="flex gap-2"><i class="fa-solid fa-check text-brand-flame mt-1"></i>プロンプト運用・レビュー体制の設計</li>
+                            <li class="flex gap-2"><i class="fa-solid fa-check text-brand-flame mt-1"></i>成果物ベースで単価が上がる領域</li>
                         </ul>
                     </div>
                 </div>
@@ -736,7 +700,7 @@
         </div>
     </section>
 
-    <!-- Solutions Section -->
+<!-- Solutions Section -->
     <section id="solutions" class="section-padding bg-[#0A0A0A] relative">
         <div class="max-w-7xl mx-auto px-6 relative z-10">
             <div class="flex flex-col md:flex-row justify-between items-end mb-24 reveal">
@@ -776,8 +740,7 @@
                             <li class="flex gap-2"><i
                                     class="fa-solid fa-check text-brand-flame mt-1"></i>外部活動・情報発信の安全ガイド（ライト版）</li>
                             <li class="flex gap-2"><i
-                                    class="fa-solid fa-check text-brand-flame mt-1"></i>LINEで医療×AIの実務ニュースと注意点を週1〜2回配信
-                            </li>
+                                    class="fa-solid fa-check text-brand-flame mt-1"></i>LINEで医療×AIの実務ニュースと注意点を週1〜2回配信</li>
                         </ul>
                         <div class="mt-4 text-xs text-white/70 space-y-1">
                             <p>・AIに興味はあるが、まずは様子を見たい勤務医・看護師・コメディカルの方</p>
@@ -811,15 +774,10 @@
                             Verified Promptと実務テンプレートで、臨床知を「再利用できる形」に整えます。<br>
                             目的は、勉強ではなく<span class="text-white">“実装”</span>。時間の切り売りから抜け出すための武器庫です。</p>
                         <ul class="mt-4 space-y-2 text-sm text-white/80 leading-relaxed">
-                            <li class="flex gap-2"><i
-                                    class="fa-solid fa-check text-brand-flame mt-1"></i>診療・研究・発信のVerified Prompt（再現性ある型）
-                            </li>
-                            <li class="flex gap-2"><i
-                                    class="fa-solid fa-check text-brand-flame mt-1"></i>プロフィール／投稿設計／教材構成のテンプレ</li>
-                            <li class="flex gap-2"><i
-                                    class="fa-solid fa-check text-brand-flame mt-1"></i>免責・注意書き・契約書の雛形（守備の標準装備）</li>
-                            <li class="flex gap-2"><i
-                                    class="fa-solid fa-check text-brand-flame mt-1"></i>著作権クリア素材・スライド部品で制作を加速</li>
+                            <li class="flex gap-2"><i class="fa-solid fa-check text-brand-flame mt-1"></i>診療・研究・発信のVerified Prompt（再現性ある型）</li>
+                            <li class="flex gap-2"><i class="fa-solid fa-check text-brand-flame mt-1"></i>プロフィール／投稿設計／教材構成のテンプレ</li>
+                            <li class="flex gap-2"><i class="fa-solid fa-check text-brand-flame mt-1"></i>免責・注意書き・契約書の雛形（守備の標準装備）</li>
+                            <li class="flex gap-2"><i class="fa-solid fa-check text-brand-flame mt-1"></i>著作権クリア素材・スライド部品で制作を加速</li>
                         </ul>
                         <div class="mt-4 text-xs text-white/70 space-y-1">
                             <p>・「まずはストック型（コンテンツ）」を作り、実績と導線を育てたい方</p>
@@ -854,14 +812,10 @@
                             臨床知を「眠らない資産」へ昇華する集中プログラム。<br>
                             勝ち筋の設計、商品化、発信、守備（線引き）、AIワークフローを一気通貫で伴走します。</p>
                         <ul class="mt-4 space-y-2 text-sm text-white/80 leading-relaxed">
-                            <li class="flex gap-2"><i
-                                    class="fa-solid fa-check text-brand-flame mt-1"></i>あなたの“勝ち筋”診断（強み×市場×倫理）</li>
-                            <li class="flex gap-2"><i
-                                    class="fa-solid fa-check text-brand-flame mt-1"></i>ストック／スポット／継続の収益設計と優先順位</li>
-                            <li class="flex gap-2"><i
-                                    class="fa-solid fa-check text-brand-flame mt-1"></i>提案書・資料・LPのレビュー（実務フィードバック）</li>
-                            <li class="flex gap-2"><i
-                                    class="fa-solid fa-check text-brand-flame mt-1"></i>AIを使った制作・運用の標準化（再現性の担保）</li>
+                            <li class="flex gap-2"><i class="fa-solid fa-check text-brand-flame mt-1"></i>あなたの“勝ち筋”診断（強み×市場×倫理）</li>
+                            <li class="flex gap-2"><i class="fa-solid fa-check text-brand-flame mt-1"></i>ストック／スポット／継続の収益設計と優先順位</li>
+                            <li class="flex gap-2"><i class="fa-solid fa-check text-brand-flame mt-1"></i>提案書・資料・LPのレビュー（実務フィードバック）</li>
+                            <li class="flex gap-2"><i class="fa-solid fa-check text-brand-flame mt-1"></i>AIを使った制作・運用の標準化（再現性の担保）</li>
                         </ul>
                         <div class="mt-4 text-xs text-white/70 space-y-1">
                             <p>・「何を作れば良いか」ではなく、「勝てる型を最短で作りたい」方</p>
