@@ -1,289 +1,129 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cursorvers Community Join</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Noto Sans JP"', 'sans-serif'],
+            en: ['"Manrope"', 'sans-serif'],
+          },
+          colors: {
+            'brand-bg': '#FFFFFF',
+            'brand-surface': '#F8FAFC',
+            'brand-flame': '#FF4500',
+            'brand-gold': '#FF5A1F',
+            'brand-slate': '#475569',
+            'brand-text-main': '#0F172A',
+            'brand-border': '#E2E8F0',
+          },
+        },
+      },
+    };
+  </script>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-      background: #0F0505;
-      color: #fff;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
-    .container {
-      max-width: 500px;
-      width: 100%;
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(10px);
-      border-radius: 20px;
-      padding: 40px 30px;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-    }
-    .subtitle {
-      color: #999;
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 2px;
-      margin-bottom: 10px;
-      text-transform: uppercase;
-    }
-    h1 {
-      font-size: 28px;
-      font-weight: 700;
-      margin-bottom: 20px;
-      line-height: 1.3;
-      color: #fff;
-    }
-    .step-indicator {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 30px;
-    }
-    .step {
-      flex: 1;
-      height: 4px;
-      background: rgba(255, 255, 255, 0.2);
-      border-radius: 2px;
-      transition: all 0.3s;
+      font-family: "Noto Sans JP", system-ui, sans-serif;
+      background-color: #FFFFFF;
+      color: #0F172A;
     }
     .step.active {
-      background: #888;
-    }
-    .description {
-      color: #ccc;
-      font-size: 14px;
-      line-height: 1.6;
-      margin-bottom: 20px;
-    }
-    .highlight {
-      color: #bbb;
-      font-weight: 600;
-      display: block;
-      margin-top: 10px;
-    }
-    .warning {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 8px;
-      padding: 12px;
-      color: #ccc;
-      font-size: 13px;
-      margin-bottom: 20px;
-    }
-    .form-section {
-      margin-bottom: 30px;
-    }
-    .form-group {
-      margin-bottom: 20px;
-    }
-    label {
-      display: block;
-      font-size: 14px;
-      font-weight: 600;
-      margin-bottom: 8px;
-      color: #fff;
-    }
-    input[type="email"] {
-      width: 100%;
-      padding: 12px 16px;
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 8px;
-      color: #fff;
-      font-size: 14px;
-      transition: all 0.3s;
-    }
-    input[type="email"]:focus {
-      outline: none;
-      border-color: #888;
-      background: rgba(255, 255, 255, 0.15);
-    }
-    input[type="email"]::placeholder {
-      color: rgba(255, 255, 255, 0.4);
-    }
-    .note {
-      font-size: 12px;
-      color: #999;
-      margin-top: 6px;
-    }
-    .toggle-group {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 20px;
-      padding: 16px;
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 8px;
-    }
-    .toggle-group label {
-      margin: 0;
-      flex: 1;
-      cursor: pointer;
-      color: #fff;
-    }
-    input[type="checkbox"] {
-      width: 18px;
-      height: 18px;
-      cursor: pointer;
-      accent-color: #888;
-    }
-    .checkbox-group {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      margin-bottom: 16px;
-    }
-    .checkbox-group label {
-      margin: 0;
-      font-size: 13px;
-      font-weight: 400;
-      cursor: pointer;
-      line-height: 1.5;
-      color: #ccc;
-    }
-    button {
-      width: 100%;
-      padding: 14px;
-      background: #FF6B35;
-      color: #fff;
-      font-size: 16px;
-      font-weight: 700;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: all 0.3s;
-      box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
-    }
-    button:hover {
-      background: #ff8555;
-      transform: translateY(-2px);
-      box-shadow: 0 6px 16px rgba(255, 107, 53, 0.4);
-    }
-    button:active {
-      transform: translateY(0);
-    }
-    button:disabled {
-      background: #666;
-      cursor: not-allowed;
-      transform: none;
-      box-shadow: none;
-    }
-    .hidden {
-      display: none;
-    }
-    .status {
-      padding: 12px 16px;
-      border-radius: 8px;
-      margin-bottom: 20px;
-      font-size: 14px;
-      text-align: center;
-    }
-    .status.success {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      color: #bbb;
-    }
-    .status.error {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      color: #ccc;
-    }
-    .info-box {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 8px;
-      padding: 16px;
-      margin-bottom: 20px;
-      color: #fff;
-      font-size: 14px;
-      line-height: 1.6;
-    }
-    a {
-      color: #999;
-      text-decoration: underline;
+      background: #FF4500;
     }
   </style>
 </head>
-<body>
-  <div class="container">
-    <div class="subtitle">FREE COMMUNITY</div>
-    <h1>参加フォーム</h1>
-    
+<body class="bg-white text-slate-900 min-h-screen flex items-center justify-center p-5">
+  <div class="max-w-lg w-full bg-white border border-slate-200 rounded-2xl shadow-xl p-8 md:p-10 space-y-6">
+    <div class="text-xs uppercase tracking-[0.4em] text-brand-flame font-bold font-en">FREE COMMUNITY</div>
+    <h1 class="text-2xl md:text-3xl font-bold text-slate-900">参加フォーム</h1>
+
     <!-- ステップインジケーター -->
-    <div class="step-indicator">
-      <div class="step active" id="step1"></div>
-      <div class="step" id="step2"></div>
+    <div class="flex gap-2">
+      <div class="step flex-1 h-1 rounded-full bg-brand-flame" id="step1"></div>
+      <div class="step flex-1 h-1 rounded-full bg-slate-200" id="step2"></div>
     </div>
-    
-    <div class="description">
-      LINEで友だち追加し、最新のSafety & Literacyアップデートを受け取ります。
-      <span class="highlight">メール登録で「Safetyスタートパック」（最新AI副業トレンド＋安全プロンプトLite）を配布。</span>
-      メールは任意です。
+
+    <div class="text-slate-600 text-sm leading-relaxed space-y-2">
+      <p>LINEで友だち追加し、最新のSafety & Literacyアップデートを受け取ります。</p>
+      <p class="text-slate-900 font-semibold">メール登録で「Safetyスタートパック」（最新AI副業トレンド＋安全プロンプトLite）を配布。</p>
+      <p class="text-slate-500 text-xs">メールは任意です。</p>
     </div>
-    
-    <div class="warning">
-      PHI（診療情報）は絶対に入力しないでください。
+
+    <div class="bg-brand-flame/10 border border-brand-flame/30 rounded-xl p-4 text-brand-flame text-sm font-medium">
+      <i class="fa-solid fa-triangle-exclamation mr-2"></i>PHI（診療情報）は絶対に入力しないでください。
     </div>
-    
-    <div id="status" class="status hidden"></div>
-    
+
+    <div id="status" class="text-sm font-semibold hidden"></div>
+
     <!-- ステップ1: メール登録フォーム -->
-    <div id="email-form-section" class="form-section">
-      <div class="toggle-group">
-        <input type="checkbox" id="email-opt-in" checked>
-        <label for="email-opt-in">メールアドレスを登録して特典を受け取る</label>
-      </div>
-      
-      <div id="email-input-section">
-        <div class="form-group">
-          <label for="email">メールアドレス</label>
-          <input type="email" id="email" name="email" placeholder="your-email@example.com">
-          <div class="note">メール登録で特典配布。未入力でもLINE登録できます。</div>
+    <div id="email-form-section" class="space-y-5">
+      <label class="flex items-center gap-3 text-sm text-slate-700 bg-slate-50 border border-slate-200 rounded-xl p-4 cursor-pointer hover:bg-slate-100 transition">
+        <input type="checkbox" id="email-opt-in" checked class="rounded border-slate-300 text-brand-flame focus:ring-brand-flame">
+        <span>メールアドレスを登録して特典を受け取る</span>
+      </label>
+
+      <div id="email-input-section" class="space-y-4">
+        <div class="space-y-2">
+          <label for="email" class="text-sm font-semibold text-slate-900">メールアドレス</label>
+          <input type="email" id="email" name="email" placeholder="your-email@example.com" class="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-flame focus:border-brand-flame">
+          <p class="text-xs text-slate-500">メール登録で特典配布。未入力でもLINE登録できます。</p>
         </div>
-        
-        <div class="checkbox-group">
-          <input type="checkbox" id="opt-in" checked>
-          <label for="opt-in">ニュースレター／アップデートをメールで受け取る（任意、初期ON）</label>
-        </div>
+
+        <label class="flex items-start gap-3 text-sm text-slate-600">
+          <input type="checkbox" id="opt-in" checked class="mt-1 rounded border-slate-300 text-brand-flame focus:ring-brand-flame">
+          <span>ニュースレター／アップデートをメールで受け取る（任意、初期ON）</span>
+        </label>
       </div>
-      
-      <div class="checkbox-group">
-        <input type="checkbox" id="agree" required>
-        <label for="agree">利用規約・プライバシーポリシー・PHI禁止に同意する</label>
-      </div>
-      
-      <button id="email-submit-btn">次へ（LINE登録）</button>
+
+      <label class="flex items-start gap-3 text-sm text-slate-600">
+        <input type="checkbox" id="agree" required class="mt-1 rounded border-slate-300 text-brand-flame focus:ring-brand-flame">
+        <span><a href="terms.html" class="underline hover:text-brand-flame">利用規約</a>・<a href="privacy.html" class="underline hover:text-brand-flame">プライバシーポリシー</a>・PHI禁止に同意する</span>
+      </label>
+
+      <button id="email-submit-btn" class="w-full rounded-full bg-brand-flame text-white font-bold py-3 hover:bg-brand-flame/90 transition focus:outline-none focus:ring-2 focus:ring-brand-flame focus:ring-offset-2">
+        次へ（LINE登録）
+      </button>
     </div>
-    
+
     <!-- ステップ2: LINEログインセクション -->
-    <div id="line-login-section" class="form-section hidden">
-      <div class="info-box" id="line-login-message"></div>
-      <button id="line-login-btn">LINEでログイン</button>
+    <div id="line-login-section" class="space-y-5 hidden">
+      <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 text-slate-700 text-sm leading-relaxed" id="line-login-message"></div>
+      <button id="line-login-btn" class="w-full rounded-full bg-[#06C755] text-white font-bold py-3 hover:opacity-90 transition focus:outline-none focus:ring-2 focus:ring-[#06C755] focus:ring-offset-2 flex items-center justify-center gap-2">
+        <i class="fa-brands fa-line text-xl"></i>
+        LINEでログイン
+      </button>
     </div>
-    
+
     <!-- 完了メッセージ -->
-    <div id="complete-section" class="form-section hidden">
-      <div class="status success">
-        ✅ 登録が完了しました！
+    <div id="complete-section" class="hidden space-y-4">
+      <div class="bg-green-50 border border-green-200 rounded-xl p-4 text-green-700 text-sm font-medium flex items-center gap-2">
+        <i class="fa-solid fa-circle-check"></i>
+        登録が完了しました！
       </div>
-      <div id="line-user" style="padding: 16px; background: rgba(255,255,255,0.05); border-radius: 8px; font-size: 13px; color: #999;"></div>
+      <div id="line-user" class="bg-slate-50 border border-slate-200 rounded-xl p-4 text-slate-500 text-xs"></div>
+    </div>
+
+    <div class="pt-4 border-t border-slate-200 text-center">
+      <a href="index.html" class="text-sm text-slate-500 hover:text-brand-flame transition flex items-center justify-center gap-2">
+        <i class="fa-solid fa-arrow-left text-xs"></i>
+        トップページに戻る
+      </a>
     </div>
   </div>
 
   <script>
     const LIFF_FALLBACK_ID = "2008640048-jnoneGgO";
     const API_ENDPOINT = "https://haaxgwyimoqzzxzdaeep.functions.supabase.co/line-register";
-    
+
     const statusEl = document.getElementById("status");
     const emailOptIn = document.getElementById("email-opt-in");
     const emailInputSection = document.getElementById("email-input-section");
@@ -296,30 +136,29 @@
     const userEl = document.getElementById("line-user");
     const step1 = document.getElementById("step1");
     const step2 = document.getElementById("step2");
-    
+
     let savedEmail = null;
     let savedOptIn = false;
     let lineUserId = null;
     let liffId = LIFF_FALLBACK_ID;
     let liffLoaded = false;
 
-    // ステータス表示
     function setStatus(message, isError = false) {
       statusEl.textContent = message;
-      statusEl.className = `status ${isError ? 'error' : 'success'}`;
+      statusEl.className = `text-sm font-semibold p-3 rounded-xl ${isError ? 'bg-red-50 border border-red-200 text-red-600' : 'bg-green-50 border border-green-200 text-green-600'}`;
       statusEl.classList.remove('hidden');
     }
 
-    // ステップ切り替え
     function goToStep2() {
-      step1.classList.remove('active');
-      step2.classList.add('active');
+      step1.classList.remove('bg-brand-flame');
+      step1.classList.add('bg-slate-300');
+      step2.classList.remove('bg-slate-200');
+      step2.classList.add('bg-brand-flame');
       emailFormSection.classList.add('hidden');
       lineLoginSection.classList.remove('hidden');
       statusEl.classList.add('hidden');
     }
 
-    // メール登録トグル制御
     emailOptIn.addEventListener('change', () => {
       if (emailOptIn.checked) {
         emailInputSection.classList.remove('hidden');
@@ -328,7 +167,6 @@
       }
     });
 
-    // 次へボタン（ステップ1）
     emailSubmitBtn.addEventListener('click', async () => {
       const agreeCheckbox = document.getElementById('agree');
       if (!agreeCheckbox.checked) {
@@ -337,18 +175,16 @@
       }
 
       emailSubmitBtn.disabled = true;
-      setStatus('処理中...');
+      emailSubmitBtn.textContent = '処理中...';
 
       try {
         let message = '';
-        
-        // メール登録がONかつメールアドレスが入力されている場合
+
         if (emailOptIn.checked) {
           const email = document.getElementById('email').value.trim();
           if (email) {
             const optIn = document.getElementById('opt-in').checked;
-            
-            // メールアドレスをAPIに送信
+
             const response = await fetch(API_ENDPOINT, {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
@@ -362,7 +198,6 @@
               throw new Error('メール登録に失敗しました');
             }
 
-            // sessionStorageに保存
             sessionStorage.setItem('savedEmail', email);
             sessionStorage.setItem('savedOptIn', optIn.toString());
             savedEmail = email;
@@ -377,8 +212,6 @@
         }
 
         lineLoginMessage.textContent = message;
-        
-        // ステップ2へ移動
         goToStep2();
 
       } catch (error) {
@@ -386,17 +219,17 @@
         setStatus(error.message || 'エラーが発生しました', true);
       } finally {
         emailSubmitBtn.disabled = false;
+        emailSubmitBtn.textContent = '次へ（LINE登録）';
       }
     });
 
-    // LIFF SDKを動的に読み込む
     function loadLiffSdk() {
       return new Promise((resolve, reject) => {
         if (liffLoaded) {
           resolve();
           return;
         }
-        
+
         const script = document.createElement('script');
         script.src = 'https://static.line-scdn.net/liff/edge/2/sdk.js';
         script.onload = () => {
@@ -408,18 +241,15 @@
       });
     }
 
-    // LINEログインボタン（ステップ2）
     lineLoginBtn.addEventListener('click', async () => {
       lineLoginBtn.disabled = true;
       lineLoginMessage.textContent = 'LINEログイン準備中...';
-      
+
       try {
-        // LIFF SDKを読み込む（ここで初めて読み込まれる）
         await loadLiffSdk();
-        
+
         lineLoginMessage.textContent = 'LINEログイン中...';
-        
-        // URLからliffIdを取得（なければfallback）
+
         const params = new URLSearchParams(window.location.search);
         if (params.has('liffId')) {
           liffId = params.get('liffId');
@@ -442,13 +272,11 @@
       }
     });
 
-    // LINE連携
     async function linkLineAccount() {
       try {
         const profile = await liff.getProfile();
         lineUserId = profile.userId;
 
-        // sessionStorageから復元
         const storedEmail = sessionStorage.getItem('savedEmail');
         const storedOptIn = sessionStorage.getItem('savedOptIn') === 'true';
 
@@ -471,10 +299,9 @@
           throw new Error('LINE連携に失敗しました');
         }
 
-        // 成功
         sessionStorage.removeItem('savedEmail');
         sessionStorage.removeItem('savedOptIn');
-        
+
         lineLoginSection.classList.add('hidden');
         completeSection.classList.remove('hidden');
         userEl.textContent = `LINE User ID: ${lineUserId.substring(0, 8)}...`;
@@ -484,9 +311,6 @@
         lineLoginMessage.textContent = `❌ ${error.message || 'LINE連携に失敗しました'}`;
       }
     }
-
-    // Note: ページ読み込み時にLINE関連の処理は一切起動しません。
-    // LIFF SDKも、ユーザーが「LINEでログイン」ボタンを押すまで読み込まれません。
   </script>
 </body>
 </html>
