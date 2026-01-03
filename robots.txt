@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://cursorvers.github.io/cursorvers-edu/sitemap.xml
