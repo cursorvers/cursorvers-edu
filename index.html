@@ -6,17 +6,16 @@
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-TX3Y6G4XWJ"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-TX3Y6G4XWJ');
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-TX3Y6G4XWJ');
     </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cursorvers.edu | 臨床知の資産化とAIで経済的自律</title>
     <meta name="description" content="臨床知を資産化し、AIで医療者の経済的自律と収益基盤の複線化を設計する。安全な線引きと実装テンプレートで、時間ではなく構造で守る。">
 
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <link
         href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Manrope:wght@400;600;800&display=swap"
         rel="stylesheet">
@@ -76,7 +75,7 @@
             font-family: "Noto Sans JP", system-ui, sans-serif;
         }
 
-        /* --- Hero Section (Clean/White Style) --- */
+        /* --- Hero Section (Video Background Style - White Base) --- */
         .hero-wrapper {
             position: relative;
             min-height: 100vh;
@@ -89,50 +88,53 @@
             padding-top: 80px;
         }
 
-        #webgl-container {
-            position: absolute;
-            inset: 0;
-            z-index: 1;
-            pointer-events: none;
-            /* mix-blend-mode: multiply; Remove screen blend for white bg */
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 10;
-            width: 100%;
-        }
-
-        /* Glass Nav (Light) */
-        /* Hero Layout (Critical for 3D Layering) */
-        .hero-wrapper {
-            position: relative;
-            width: 100%;
-            min-height: 100vh;
-            overflow: hidden;
-            background-color: #FFFFFF;
-            /* Ensure base is white */
-        }
-
-        #webgl-container {
+        /* Video Background */
+        .hero-video-container {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             z-index: 0;
-            pointer-events: none;
-            /* Let clicks pass through to text/buttons if needed */
+            overflow: hidden;
         }
 
-        /* Ensure content sits above the canvas */
+        .hero-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+            filter: brightness(1.1) saturate(0.9);
+        }
+
+        /* White overlay for text readability - Premium Light Style */
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg,
+                    rgba(255, 255, 255, 0.85) 0%,
+                    rgba(255, 255, 255, 0.75) 40%,
+                    rgba(255, 255, 255, 0.65) 100%);
+            z-index: 1;
+        }
+
+        /* Glass Nav (White compatible) */
         .hero-content {
             position: relative;
             z-index: 10;
+            width: 100%;
         }
 
         .glass-nav {
-            background: rgba(255, 255, 255, 0.84);
+            background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(12px);
             border-bottom: 1px solid rgba(0, 0, 0, 0.05);
         }
@@ -354,9 +356,16 @@
         </div>
     </header>
 
-    <!-- Hero Section (Clean/Trust) -->
+    <!-- Hero Section (Video Background - White Base) -->
     <div class="hero-wrapper">
-        <div id="webgl-container"></div>
+        <!-- Video Background -->
+        <div class="hero-video-container">
+            <video class="hero-video" autoplay muted loop playsinline>
+                <source src="https://videos.pexels.com/video-files/3571264/3571264-uhd_2560_1440_30fps.mp4"
+                    type="video/mp4">
+            </video>
+            <div class="hero-overlay"></div>
+        </div>
 
         <div class="hero-content max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center h-full">
             <div class="text-left z-10 pt-20 w-full mx-auto md:col-span-2 md:max-w-5xl">
@@ -379,7 +388,7 @@
                 <p class="mt-8 text-slate-600 text-lg md:text-xl font-medium tracking-wide leading-relaxed max-w-full md:max-w-6xl animate-fade-in-up text-balance md:whitespace-nowrap"
                     style="animation-delay: 0.3s;">
                     医療費抑制・働き方改革・インフレ。<br class="sm:block md:hidden">「体力で稼ぐ」モデルは、静かに限界へ。<br class="md:inline">
-                    だからこそ、臨床知をAIで複製可能な形に変え、<br class="sm:block md:hidden">時間ではなく“構造”で収入と選択肢を守る。
+                    だからこそ、臨床知をAIで複製可能な形に変え、<br class="sm:block md:hidden">時間ではなく"構造"で収入と選択肢を守る。
                 </p>
 
                 <!-- Hero CTA -->
@@ -595,15 +604,21 @@
                     </div>
                     <div class="p-8 flex flex-col flex-grow">
                         <h3 class="text-xl font-bold text-slate-900 mb-2">Free Community</h3>
-                        <p class="text-xs font-bold text-brand-flame uppercase tracking-wider mb-4 font-en">Risk Control & Basics</p>
+                        <p class="text-xs font-bold text-brand-flame uppercase tracking-wider mb-4 font-en">Risk Control
+                            & Basics</p>
                         <p class="text-base text-slate-600 leading-relaxed">
                             まずは「事故らない」ためのAIリテラシーを身につける無料フェーズ。免許やキャリアを危険にさらさず試せるよう、最低限おさえておきたいリスクと守り方をコンパクトに学びます。
                         </p>
                         <ul class="mt-4 space-y-2 text-base text-slate-600 leading-relaxed">
-                            <li class="flex gap-2"><i class="fa-solid fa-check text-brand-flame mt-1"></i>リスク診断ボットで危険度セルフチェック</li>
-                            <li class="flex gap-2"><i class="fa-solid fa-check text-brand-flame mt-1"></i>安全プロンプト集（Lite）／炎上・誤情報を回避</li>
-                            <li class="flex gap-2"><i class="fa-solid fa-check text-brand-flame mt-1"></i>外部活動・情報発信の安全ガイド（ライト版）</li>
-                            <li class="flex gap-2"><i class="fa-solid fa-check text-brand-flame mt-1"></i>LINEで医療×AIの実務ニュースと注意点を週1〜2回配信</li>
+                            <li class="flex gap-2"><i
+                                    class="fa-solid fa-check text-brand-flame mt-1"></i>リスク診断ボットで危険度セルフチェック</li>
+                            <li class="flex gap-2"><i
+                                    class="fa-solid fa-check text-brand-flame mt-1"></i>安全プロンプト集（Lite）／炎上・誤情報を回避</li>
+                            <li class="flex gap-2"><i
+                                    class="fa-solid fa-check text-brand-flame mt-1"></i>外部活動・情報発信の安全ガイド（ライト版）</li>
+                            <li class="flex gap-2"><i
+                                    class="fa-solid fa-check text-brand-flame mt-1"></i>LINEで医療×AIの実務ニュースと注意点を週1〜2回配信
+                            </li>
                         </ul>
                         <div class="mt-4 text-sm text-slate-500 space-y-2">
                             <p>・AIに興味はあるが、まずは様子を見たい勤務医・看護師・コメディカルの方</p>
@@ -630,21 +645,28 @@
                     </div>
                     <div class="p-8 flex flex-col flex-grow">
                         <h3 class="text-xl font-bold text-slate-900 mb-2">Library Member</h3>
-                        <p class="text-xs font-bold text-brand-flame uppercase tracking-wider mb-4 font-en">Automation & Tools</p>
+                        <p class="text-xs font-bold text-brand-flame uppercase tracking-wider mb-4 font-en">Automation &
+                            Tools</p>
                         <p class="text-base text-slate-600 leading-relaxed">
                             Verified Promptと実務テンプレートで、臨床知を「再利用できる形」に整えます。目的は、勉強ではなく"実装"。時間の切り売りから抜け出すための武器庫です。</p>
                         <ul class="mt-4 space-y-2 text-base text-slate-600 leading-relaxed">
-                            <li class="flex gap-2"><i class="fa-solid fa-check text-brand-flame mt-1"></i>診療・研究・発信のVerified Prompt（再現性ある型）</li>
-                            <li class="flex gap-2"><i class="fa-solid fa-check text-brand-flame mt-1"></i>プロフィール／投稿設計／教材構成のテンプレ</li>
-                            <li class="flex gap-2"><i class="fa-solid fa-check text-brand-flame mt-1"></i>免責・注意書き・契約書の雛形（守備の標準装備）</li>
-                            <li class="flex gap-2"><i class="fa-solid fa-check text-brand-flame mt-1"></i>著作権クリア素材・スライド部品で制作を加速</li>
+                            <li class="flex gap-2"><i
+                                    class="fa-solid fa-check text-brand-flame mt-1"></i>診療・研究・発信のVerified Prompt（再現性ある型）
+                            </li>
+                            <li class="flex gap-2"><i
+                                    class="fa-solid fa-check text-brand-flame mt-1"></i>プロフィール／投稿設計／教材構成のテンプレ</li>
+                            <li class="flex gap-2"><i
+                                    class="fa-solid fa-check text-brand-flame mt-1"></i>免責・注意書き・契約書の雛形（守備の標準装備）</li>
+                            <li class="flex gap-2"><i
+                                    class="fa-solid fa-check text-brand-flame mt-1"></i>著作権クリア素材・スライド部品で制作を加速</li>
                         </ul>
                         <div class="mt-4 text-sm text-slate-500 space-y-2">
                             <p>・「まずはストック型（コンテンツ）」を作り、実績と導線を育てたい方</p>
                             <p>・当直・外勤の代替として、月数万円の積み上げを狙いたい方</p>
                         </div>
                         <div class="mt-auto border-t border-slate-200 pt-6 flex justify-between items-center gap-3">
-                            <span class="text-lg font-bold text-slate-900 font-en">¥2,980<span class="text-xs text-slate-500 ml-1">/ Month</span></span>
+                            <span class="text-lg font-bold text-slate-900 font-en">¥2,980<span
+                                    class="text-xs text-slate-500 ml-1">/ Month</span></span>
                             <a href="services.html#phase02"
                                 class="inline-flex items-center justify-center px-4 py-2 rounded-full text-xs md:text-sm font-bold text-white bg-brand-flame hover:bg-brand-flame/90 font-en uppercase tracking-widest transition">
                                 Join Library
@@ -664,14 +686,19 @@
                     </div>
                     <div class="p-8 flex flex-col flex-grow">
                         <h3 class="text-xl font-bold text-slate-900 mb-2">Master Class</h3>
-                        <p class="text-xs font-bold text-amber-600 uppercase tracking-wider mb-4 font-en">Closed Beta・Waitlist</p>
+                        <p class="text-xs font-bold text-amber-600 uppercase tracking-wider mb-4 font-en">Closed
+                            Beta・Waitlist</p>
                         <p class="text-base text-slate-600 leading-relaxed">
                             臨床知を「眠らない資産」へ昇華する集中プログラム。勝ち筋の設計、商品化、発信、守備（線引き）、AIワークフローを一気通貫で伴走します。</p>
                         <ul class="mt-4 space-y-2 text-base text-slate-600 leading-relaxed">
-                            <li class="flex gap-2"><i class="fa-solid fa-check text-brand-flame mt-1"></i>あなたの"勝ち筋"診断（強み×市場×倫理）</li>
-                            <li class="flex gap-2"><i class="fa-solid fa-check text-brand-flame mt-1"></i>ストック／スポット／継続の収益設計と優先順位</li>
-                            <li class="flex gap-2"><i class="fa-solid fa-check text-brand-flame mt-1"></i>提案書・資料・LPのレビュー（実務フィードバック）</li>
-                            <li class="flex gap-2"><i class="fa-solid fa-check text-brand-flame mt-1"></i>AIを使った制作・運用の標準化（再現性の担保）</li>
+                            <li class="flex gap-2"><i
+                                    class="fa-solid fa-check text-brand-flame mt-1"></i>あなたの"勝ち筋"診断（強み×市場×倫理）</li>
+                            <li class="flex gap-2"><i
+                                    class="fa-solid fa-check text-brand-flame mt-1"></i>ストック／スポット／継続の収益設計と優先順位</li>
+                            <li class="flex gap-2"><i
+                                    class="fa-solid fa-check text-brand-flame mt-1"></i>提案書・資料・LPのレビュー（実務フィードバック）</li>
+                            <li class="flex gap-2"><i
+                                    class="fa-solid fa-check text-brand-flame mt-1"></i>AIを使った制作・運用の標準化（再現性の担保）</li>
                         </ul>
                         <div class="mt-4 text-sm text-slate-500 space-y-2">
                             <p>・「何を作れば良いか」ではなく、「勝てる型を最短で作りたい」方</p>
@@ -933,7 +960,9 @@
                 </div>
             </div>
             <div class="mt-16 pt-8 border-t border-slate-200">
-                <p class="text-center text-sm text-slate-500 mb-6">※ 当事業者は免税事業者です。インボイス（適格請求書）は発行できないため、消費税の仕入税額控除にはご利用いただけません。<a href="tokushoho.html" class="underline hover:text-slate-700 ml-1">詳細はこちら</a></p>
+                <p class="text-center text-sm text-slate-500 mb-6">※
+                    当事業者は免税事業者です。インボイス（適格請求書）は発行できないため、消費税の仕入税額控除にはご利用いただけません。<a href="tokushoho.html"
+                        class="underline hover:text-slate-700 ml-1">詳細はこちら</a></p>
                 <div class="flex flex-col md:flex-row justify-between items-center gap-4">
                     <p class="font-en">&copy; 2025 Cursorvers.</p>
                     <div class="flex gap-6 text-lg">
@@ -963,14 +992,14 @@
 
             // === SIMPLEX NOISE (Inline implementation) ===
             const simplex = {
-                grad3: [[1,1,0],[-1,1,0],[1,-1,0],[-1,-1,0],[1,0,1],[-1,0,1],[1,0,-1],[-1,0,-1],[0,1,1],[0,-1,1],[0,1,-1],[0,-1,-1]],
-                p: [151,160,137,91,90,15,131,13,201,95,96,53,194,233,7,225,140,36,103,30,69,142,8,99,37,240,21,10,23,190,6,148,247,120,234,75,0,26,197,62,94,252,219,203,117,35,11,32,57,177,33,88,237,149,56,87,174,20,125,136,171,168,68,175,74,165,71,134,139,48,27,166,77,146,158,231,83,111,229,122,60,211,133,230,220,105,92,41,55,46,245,40,244,102,143,54,65,25,63,161,1,216,80,73,209,76,132,187,208,89,18,169,200,196,135,130,116,188,159,86,164,100,109,198,173,186,3,64,52,217,226,250,124,123,5,202,38,147,118,126,255,82,85,212,207,206,59,227,47,16,58,17,182,189,28,42,223,183,170,213,119,248,152,2,44,154,163,70,221,153,101,155,167,43,172,9,129,22,39,253,19,98,108,110,79,113,224,232,178,185,112,104,218,246,97,228,251,34,242,193,238,210,144,12,191,179,162,241,81,51,145,235,249,14,239,107,49,192,214,31,181,199,106,157,184,84,204,176,115,121,50,45,127,4,150,254,138,236,205,93,222,114,67,29,24,72,243,141,128,195,78,66,215,61,156,180],
+                grad3: [[1, 1, 0], [-1, 1, 0], [1, -1, 0], [-1, -1, 0], [1, 0, 1], [-1, 0, 1], [1, 0, -1], [-1, 0, -1], [0, 1, 1], [0, -1, 1], [0, 1, -1], [0, -1, -1]],
+                p: [151, 160, 137, 91, 90, 15, 131, 13, 201, 95, 96, 53, 194, 233, 7, 225, 140, 36, 103, 30, 69, 142, 8, 99, 37, 240, 21, 10, 23, 190, 6, 148, 247, 120, 234, 75, 0, 26, 197, 62, 94, 252, 219, 203, 117, 35, 11, 32, 57, 177, 33, 88, 237, 149, 56, 87, 174, 20, 125, 136, 171, 168, 68, 175, 74, 165, 71, 134, 139, 48, 27, 166, 77, 146, 158, 231, 83, 111, 229, 122, 60, 211, 133, 230, 220, 105, 92, 41, 55, 46, 245, 40, 244, 102, 143, 54, 65, 25, 63, 161, 1, 216, 80, 73, 209, 76, 132, 187, 208, 89, 18, 169, 200, 196, 135, 130, 116, 188, 159, 86, 164, 100, 109, 198, 173, 186, 3, 64, 52, 217, 226, 250, 124, 123, 5, 202, 38, 147, 118, 126, 255, 82, 85, 212, 207, 206, 59, 227, 47, 16, 58, 17, 182, 189, 28, 42, 223, 183, 170, 213, 119, 248, 152, 2, 44, 154, 163, 70, 221, 153, 101, 155, 167, 43, 172, 9, 129, 22, 39, 253, 19, 98, 108, 110, 79, 113, 224, 232, 178, 185, 112, 104, 218, 246, 97, 228, 251, 34, 242, 193, 238, 210, 144, 12, 191, 179, 162, 241, 81, 51, 145, 235, 249, 14, 239, 107, 49, 192, 214, 31, 181, 199, 106, 157, 184, 84, 204, 176, 115, 121, 50, 45, 127, 4, 150, 254, 138, 236, 205, 93, 222, 114, 67, 29, 24, 72, 243, 141, 128, 195, 78, 66, 215, 61, 156, 180],
                 perm: [],
-                init: function() {
-                    for(let i = 0; i < 512; i++) this.perm[i] = this.p[i & 255];
+                init: function () {
+                    for (let i = 0; i < 512; i++) this.perm[i] = this.p[i & 255];
                 },
-                dot: function(g, x, y) { return g[0]*x + g[1]*y; },
-                noise2D: function(xin, yin) {
+                dot: function (g, x, y) { return g[0] * x + g[1] * y; },
+                noise2D: function (xin, yin) {
                     const F2 = 0.5 * (Math.sqrt(3) - 1);
                     const G2 = (3 - Math.sqrt(3)) / 6;
                     let n0, n1, n2;
@@ -988,11 +1017,11 @@
                     const gi0 = this.perm[ii + this.perm[jj]] % 12;
                     const gi1 = this.perm[ii + i1 + this.perm[jj + j1]] % 12;
                     const gi2 = this.perm[ii + 1 + this.perm[jj + 1]] % 12;
-                    let t0 = 0.5 - x0*x0 - y0*y0;
+                    let t0 = 0.5 - x0 * x0 - y0 * y0;
                     if (t0 < 0) n0 = 0; else { t0 *= t0; n0 = t0 * t0 * this.dot(this.grad3[gi0], x0, y0); }
-                    let t1 = 0.5 - x1*x1 - y1*y1;
+                    let t1 = 0.5 - x1 * x1 - y1 * y1;
                     if (t1 < 0) n1 = 0; else { t1 *= t1; n1 = t1 * t1 * this.dot(this.grad3[gi1], x1, y1); }
-                    let t2 = 0.5 - x2*x2 - y2*y2;
+                    let t2 = 0.5 - x2 * x2 - y2 * y2;
                     if (t2 < 0) n2 = 0; else { t2 *= t2; n2 = t2 * t2 * this.dot(this.grad3[gi2], x2, y2); }
                     return 70 * (n0 + n1 + n2);
                 }
