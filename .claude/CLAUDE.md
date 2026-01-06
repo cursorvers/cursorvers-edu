@@ -155,4 +155,12 @@ document.addEventListener('click', (e) => {
 
 ---
 
+## Platform 連携ルール
+
+**システム変更時は `Cursorvers_Platform/docs/system-architecture.md` を更新すること。**
+
+詳細: `/Users/masayuki/Cursorvers_Platform/.claude/CLAUDE.md` の「システム変更時（自動反映ルール）」を参照
+
+---
+
 作成日: 2025-12-21
