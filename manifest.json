@@ -2,7 +2,7 @@
   "name": "Cursorvers 教育プラットフォーム",
   "short_name": "Cursorvers Edu",
   "description": "AI活用の教育・研修プラットフォーム",
-  "start_url": "/",
+  "start_url": "./",
   "display": "standalone",
   "background_color": "#FFFFFF",
   "theme_color": "#2563EB",

@@ -1,12 +1,16 @@
 // Service Worker for Cursorvers Edu PWA
 const CACHE_NAME = 'cursorvers-edu-v1';
 const urlsToCache = [
-  '/',
-  '/index.html',
-  '/services.html',
-  '/community.html',
-  '/icon-192.png',
-  '/icon-512.png'
+  './',
+  './index.html',
+  './services.html',
+  './community.html',
+  './icon-192.png',
+  './icon-512.png',
+  './icon-180.png',
+  './icon-152.png',
+  './icon-120.png',
+  './icon-76.png'
 ];
 
 // Install event - cache static assets

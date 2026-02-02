@@ -16,18 +16,22 @@
     <meta name="description" content="臨床知を資産化し、AIで医療者の経済的自律と収益基盤の複線化を設計する。安全な線引きと実装テンプレートで、時間ではなく構造で守る。">
 
     <!-- PWA Manifest -->
-    <link rel="manifest" href="/manifest.json">
+    <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#2563EB">
 
-    <!-- Apple Touch Icon -->
-    <link rel="apple-touch-icon" href="/icon-180.png">
+    <!-- Apple Touch Icon (multiple sizes for iOS) -->
+    <link rel="apple-touch-icon" sizes="180x180" href="icon-180.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="icon-152.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="icon-120.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="icon-76.png">
+
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Cursorvers Edu">
 
     <!-- Standard Icons -->
-    <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
-    <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link
@@ -1397,7 +1401,7 @@
         // Register Service Worker for PWA
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js')
+                navigator.serviceWorker.register('sw.js')
                     .then((registration) => {
                         console.log('ServiceWorker registered:', registration.scope);
                     })
