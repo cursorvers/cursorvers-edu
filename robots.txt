@@ -1,4 +1,4 @@
 User-agent: *
-Allow: /
+Disallow: /
 
-Sitemap: https://cursorvers.github.io/cursorvers-edu/sitemap.xml
+Sitemap: https://cursorvers.jp/sitemap.xml

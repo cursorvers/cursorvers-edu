@@ -6,7 +6,12 @@
 <link rel="canonical" href="https://cursorvers.jp/">
 <meta name="robots" content="noindex,follow">
 <meta http-equiv="refresh" content="0;url=https://cursorvers.jp/">
-<script>location.replace('https://cursorvers.jp/');</script>
+<script>
+(function(){
+  var path = location.pathname.replace(/^\/cursorvers-edu/, '');
+  location.replace('https://cursorvers.jp' + (path || '/'));
+})();
+</script>
 </head>
 <body>
 <p>このサイトは <a href="https://cursorvers.jp/">https://cursorvers.jp/</a> に移転しました。</p>
